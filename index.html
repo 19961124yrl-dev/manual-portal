@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>数字手册</title>
+    <script src="data.js"></script>
+    <style>
+        body { margin: 0; font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif; background-color: #f4f4f4; }
+        header { 
+            background-color: #004d99; color: white; padding: 15px; 
+            text-align: center; position: relative; display: flex; 
+            justify-content: center; align-items: center; min-height: 50px;
+        }
+        header h1 { margin: 0; font-size: 1.3rem; max-width: 60%; }
+        .header-controls { position: absolute; right: 10px; top: 50%; transform: translateY(-50%); display: flex; gap: 8px; }
+        .ctrl-btn { border: none; border-radius: 4px; color: white; padding: 8px 12px; cursor: pointer; font-weight: bold; font-size: 14px; box-shadow: 0 2px 4px rgba(0,0,0,0.2); }
+        .btn-export { background-color: #f39c12; }
+        .btn-add { background-color: #28a745; font-size: 18px; line-height: 1; }
+        .container { padding: 15px; max-width: 800px; margin: 0 auto; }
+        .menu-item-wrapper { display: flex; align-items: center; margin-bottom: 12px; gap: 10px; }
+        .menu-item { background: white; border: 1px solid #ddd; padding: 18px; border-radius: 6px; cursor: pointer; flex-grow: 1; }
+        .edit-btn { background: #007bff; color: white; border: none; padding: 10px; border-radius: 5px; cursor: pointer; font-weight: bold; min-width: 60px; }
+        .back-button { display: block; width: 100%; margin-bottom: 12px; padding: 12px; background: #6c757d; color: white; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; }
+        .pdf-link { display: block; background: #eef7ff; color: #004d99; padding: 15px; margin-top: 10px; border-radius: 5px; text-decoration: none; border-left: 5px solid #004d99; font-weight: bold; }
+        .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 1000; justify-content: center; align-items: center; }
+        .modal { background: white; padding: 25px; border-radius: 12px; width: 85%; max-width: 350px; text-align: center; }
+        .modal-btns { display: flex; flex-direction: column; gap: 10px; margin-top: 20px; }
+        .btn-modal { padding: 12px; border: none; border-radius: 6px; cursor: pointer; font-size: 16px; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <header>
+        <h1 id="pageTitle">主任级数字手册</h1>
+        <div class="header-controls">
+            <button class="ctrl-btn btn-export" onclick="exportData()">💾 导出</button>
+            <button class="ctrl-btn btn-add" onclick="handleGlobalAdd()">＋</button>
+        </div>
+    </header>
+
+    <div class="container">
+        <button id="backButton" class="back-button" style="display:none;">← 返回上一级</button>
+        <div id="content"></div>
+    </div>
+
+    <div id="modalOverlay" class="modal-overlay">
+        <div class="modal">
+            <h3 id="modalTitle">管理项目</h3>
+            <div class="modal-btns">
+                <button class="btn-modal" style="background:#007bff;color:white;" id="modalRenameBtn">✏️ 修改名称</button>
+                <button class="btn-modal" style="background:#ff4d4d;color:white;" id="modalDeleteBtn">🗑️ 删除此项</button>
+                <button class="btn-modal" style="background:#eee;color:#666;" onclick="closeModal()">取消</button>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // 初始化数据，防止 data.js 缺失导致报错
+        window.EQUIPMENT_DATA = window.EQUIPMENT_DATA || {};
+
+        const contentDiv = document.getElementById('content');
+        const pageTitle = document.getElementById('pageTitle');
+        const backButton = document.getElementById('backButton');
+        const modalOverlay = document.getElementById('modalOverlay');
+
+        // --- 核心：统一增加按钮逻辑 ---
+        function handleGlobalAdd() {
+            const hash = window.location.hash.slice(1);
+            if (!hash) {
+                addItem('L0');
+            } else {
+                const [level, params] = hash.split('=');
+                const keys = params.split(',');
+                if (level === 'L1') addItem('L1', keys[0]);
+                else if (level === 'L2') addItem('L2', keys[0], keys[1]);
+            }
+        }
+
+        function addItem(level, devKey = null, modKey = null) {
+            const name = prompt("请输入名称:");
+            if (!name) return;
+
+            if (level === 'L0') {
+                const newKey = 'dev_' + Date.now();
+                EQUIPMENT_DATA[newKey] = { name: name, modules: {} };
+            } else if (level === 'L1') {
+                const newModKey = 'mod_' + Date.now();
+                EQUIPMENT_DATA[devKey].modules[newModKey] = { name: name, subcomponents: {} };
+            } else if (level === 'L2') {
+                const pdfFile = prompt("请输入 PDF 文件名 (如: 123.pdf):", "");
+                if (!pdfFile) return;
+                const subKey = 'sub_' + Date.now();
+                EQUIPMENT_DATA[devKey].modules[modKey].subcomponents = EQUIPMENT_DATA[devKey].modules[modKey].subcomponents || {};
+                EQUIPMENT_DATA[devKey].modules[modKey].subcomponents[subKey] = {
+                    name: name,
+                    processes: [{ name: name, pdf: "pdfs/" + pdfFile.replace('pdfs/', '') }]
+                };
+            }
+            handleRoute(); // 刷新当前页面显示
+        }
+
+        // 导出数据
+        function exportData() {
+            const dataStr = "window.EQUIPMENT_DATA = " + JSON.stringify(EQUIPMENT_DATA, null, 4) + ";";
+            const blob = new Blob([dataStr], { type: "text/javascript" });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement("a");
+            a.href = url;
+            a.download = "data.js";
+            a.click();
+            alert("账本已生成！请覆盖文件夹里的 data.js 文件。");
+        }
+
+        // 排序
+        function getSortedKeys(obj) {
+            if (!obj) return [];
+            return Object.keys(obj).sort((a, b) => obj[a].name.localeCompare(obj[b].name, 'zh-Hans-CN'));
+        }
+
+        // 管理弹窗
+        function openModal(e, level, k1, k2 = null, k3 = null) {
+            e.stopPropagation();
+            let obj;
+            if (level === 'L0') obj = EQUIPMENT_DATA[k1];
+            else if (level === 'L1') obj = EQUIPMENT_DATA[k1].modules[k2];
+            else if (level === 'L2') obj = EQUIPMENT_DATA[k1].modules[k2].subcomponents[k3];
+            
+            document.getElementById('modalTitle').innerText = "管理: " + obj.name;
+            modalOverlay.style.display = 'flex';
+            
+            document.getElementById('modalRenameBtn').onclick = () => {
+                const newName = prompt("新名称:", obj.name);
+                if (newName) { obj.name = newName; closeModal(); handleRoute(); }
+            };
+            document.getElementById('modalDeleteBtn').onclick = () => {
+                if (confirm("确定要删除吗？")) {
+                    if (level === 'L0') delete EQUIPMENT_DATA[k1];
+                    else if (level === 'L1') delete EQUIPMENT_DATA[k1].modules[k2];
+                    else if (level === 'L2') delete EQUIPMENT_DATA[k1].modules[k2].subcomponents[k3];
+                    closeModal(); handleRoute();
+                }
+            };
+        }
+        function closeModal() { modalOverlay.style.display = 'none'; }
+
+        // 渲染函数组
+        function renderL0() {
+            pageTitle.innerText = '设备总览 (L0)';
+            contentDiv.innerHTML = ''; backButton.style.display = 'none';
+            getSortedKeys(EQUIPMENT_DATA).forEach(key => {
+                contentDiv.innerHTML += `
+                    <div class="menu-item-wrapper">
+                        <div class="menu-item" onclick="window.location.hash='#L1=${key}'"><h2>${EQUIPMENT_DATA[key].name}</h2></div>
+                        <button class="edit-btn" onclick="openModal(event, 'L0', '${key}')">管理</button>
+                    </div>`;
+            });
+        }
+
+        function renderL1(dk) {
+            const dev = EQUIPMENT_DATA[dk];
+            pageTitle.innerText = dev.name + ' (L1)';
+            contentDiv.innerHTML = ''; backButton.style.display = 'block';
+            getSortedKeys(dev.modules).forEach(mk => {
+                contentDiv.innerHTML += `
+                    <div class="menu-item-wrapper">
+                        <div class="menu-item" onclick="window.location.hash='#L2=${dk},${mk}'"><h2>${dev.modules[mk].name}</h2></div>
+                        <button class="edit-btn" onclick="openModal(event, 'L1', '${dk}', '${mk}')">管理</button>
+                    </div>`;
+            });
+        }
+
+        function renderL2(dk, mk) {
+            const mod = EQUIPMENT_DATA[dk].modules[mk];
+            pageTitle.innerText = mod.name + ' (L2)';
+            contentDiv.innerHTML = ''; backButton.style.display = 'block';
+            getSortedKeys(mod.subcomponents || {}).forEach(sk => {
+                let html = `<div class="menu-item-wrapper"><div class="menu-item"><h2>${mod.subcomponents[sk].name}</h2>`;
+                mod.subcomponents[sk].processes.forEach(p => { html += `<a href="${p.pdf}" target="_blank" class="pdf-link">📄 点击打开 PDF 验收手册</a>`; });
+                html += `</div><button class="edit-btn" onclick="openModal(event, 'L2', '${dk}', '${mk}', '${sk}')">管理</button></div>`;
+                contentDiv.innerHTML += html;
+            });
+        }
+
+        function handleRoute() {
+            const hash = window.location.hash.slice(1);
+            if (!hash) { renderL0(); return; }
+            const [level, params] = hash.split('=');
+            const keys = params.split(',');
+            if (level === 'L1') { 
+                renderL1(keys[0]); 
+                backButton.onclick = () => window.location.hash = ''; 
+            } else if (level === 'L2') { 
+                renderL2(keys[0], keys[1]); 
+                backButton.onclick = () => window.location.hash = `#L1=${keys[0]}`; 
+            }
+        }
+
+        window.addEventListener('hashchange', handleRoute);
+        handleRoute(); 
+    </script>
+</body>
+</html>
