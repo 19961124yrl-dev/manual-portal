@@ -1,201 +1,400 @@
-<!DOCTYPE html>
-<html lang="zh-CN">
+<!doctype html>
+<html lang="zh">
 <head>
-    <meta charset="UTF-8">
-    <title>数字手册</title>
-    <script src="data.js"></script>
-    <style>
-        body { margin: 0; font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif; background-color: #f4f4f4; }
-        header { 
-            background-color: #004d99; color: white; padding: 15px; 
-            text-align: center; position: relative; display: flex; 
-            justify-content: center; align-items: center; min-height: 50px;
-        }
-        header h1 { margin: 0; font-size: 1.3rem; max-width: 60%; }
-        .header-controls { position: absolute; right: 10px; top: 50%; transform: translateY(-50%); display: flex; gap: 8px; }
-        .ctrl-btn { border: none; border-radius: 4px; color: white; padding: 8px 12px; cursor: pointer; font-weight: bold; font-size: 14px; box-shadow: 0 2px 4px rgba(0,0,0,0.2); }
-        .btn-export { background-color: #f39c12; }
-        .btn-add { background-color: #28a745; font-size: 18px; line-height: 1; }
-        .container { padding: 15px; max-width: 800px; margin: 0 auto; }
-        .menu-item-wrapper { display: flex; align-items: center; margin-bottom: 12px; gap: 10px; }
-        .menu-item { background: white; border: 1px solid #ddd; padding: 18px; border-radius: 6px; cursor: pointer; flex-grow: 1; }
-        .edit-btn { background: #007bff; color: white; border: none; padding: 10px; border-radius: 5px; cursor: pointer; font-weight: bold; min-width: 60px; }
-        .back-button { display: block; width: 100%; margin-bottom: 12px; padding: 12px; background: #6c757d; color: white; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; }
-        .pdf-link { display: block; background: #eef7ff; color: #004d99; padding: 15px; margin-top: 10px; border-radius: 5px; text-decoration: none; border-left: 5px solid #004d99; font-weight: bold; }
-        .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 1000; justify-content: center; align-items: center; }
-        .modal { background: white; padding: 25px; border-radius: 12px; width: 85%; max-width: 350px; text-align: center; }
-        .modal-btns { display: flex; flex-direction: column; gap: 10px; margin-top: 20px; }
-        .btn-modal { padding: 12px; border: none; border-radius: 6px; cursor: pointer; font-size: 16px; font-weight: bold; }
-    </style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>设备文档门户</title>
+  <style>
+    body{font-family:system-ui,-apple-system,Segoe UI,Arial;margin:16px;}
+    .top{display:flex;gap:10px;align-items:center;justify-content:space-between;flex-wrap:wrap;}
+    .card{border:1px solid #ddd;border-radius:12px;padding:14px;margin:12px 0;}
+    h1{margin:0 0 8px;font-size:20px;}
+    h2{margin:14px 0 8px;font-size:16px;}
+    .muted{color:#666;font-size:12px;}
+    input,textarea,select{padding:8px;border:1px solid #ccc;border-radius:10px;}
+    button{padding:8px 10px;border:1px solid #ccc;border-radius:10px;background:#fff;cursor:pointer;}
+    button.primary{border-color:#222;}
+    button.danger{border-color:#c33;color:#c33;}
+    .row{display:flex;gap:8px;align-items:center;flex-wrap:wrap;}
+    .item{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 0;border-top:1px dashed #eee;}
+    .item:first-child{border-top:none;}
+    a.btn{text-decoration:none;border:1px solid #ccc;border-radius:10px;padding:8px 10px;}
+    details{margin-top:10px;}
+    summary{cursor:pointer;}
+    .grid{display:grid;grid-template-columns:1fr;gap:10px;}
+    @media (min-width: 900px){ .grid{grid-template-columns:1fr 1fr;} }
+    .panel{border:1px solid #eee;border-radius:12px;padding:12px;}
+    .small{font-size:12px;}
+    .kbd{font-family:ui-monospace,Menlo,Consolas,monospace;background:#f7f7f7;padding:2px 6px;border-radius:8px;border:1px solid #eee;}
+  </style>
 </head>
 <body>
-    <header>
-        <h1 id="pageTitle">主任级数字手册</h1>
-        <div class="header-controls">
-            <button class="ctrl-btn btn-export" onclick="exportData()">💾 导出</button>
-            <button class="ctrl-btn btn-add" onclick="handleGlobalAdd()">＋</button>
-        </div>
-    </header>
-
-    <div class="container">
-        <button id="backButton" class="back-button" style="display:none;">← 返回上一级</button>
-        <div id="content"></div>
+  <div class="top">
+    <div>
+      <h1>设备文档门户</h1>
+      <div class="muted">提示：编辑内容默认保存到本地浏览器（同设备同浏览器有效）。可用“导出/导入”同步到别的设备。</div>
     </div>
-
-    <div id="modalOverlay" class="modal-overlay">
-        <div class="modal">
-            <h3 id="modalTitle">管理项目</h3>
-            <div class="modal-btns">
-                <button class="btn-modal" style="background:#007bff;color:white;" id="modalRenameBtn">✏️ 修改名称</button>
-                <button class="btn-modal" style="background:#ff4d4d;color:white;" id="modalDeleteBtn">🗑️ 删除此项</button>
-                <button class="btn-modal" style="background:#eee;color:#666;" onclick="closeModal()">取消</button>
-            </div>
-        </div>
+    <div class="row">
+      <input id="q" placeholder="搜索：设备/分类/标题/路径…" />
+      <button id="btnEdit" class="primary">编辑模式：关</button>
+      <button id="btnExport">导出 JSON</button>
+      <label class="row small" style="gap:6px;">
+        <span class="kbd">导入</span>
+        <input id="fileImport" type="file" accept="application/json" />
+      </label>
+      <button id="btnReset" class="danger">清空本地并恢复默认</button>
     </div>
-    
-    <script>
-        // 初始化数据，防止 data.js 缺失导致报错
-        window.EQUIPMENT_DATA = window.EQUIPMENT_DATA || {};
+  </div>
 
-        const contentDiv = document.getElementById('content');
-        const pageTitle = document.getElementById('pageTitle');
-        const backButton = document.getElementById('backButton');
-        const modalOverlay = document.getElementById('modalOverlay');
+  <div id="app"></div>
 
-        // --- 核心：统一增加按钮逻辑 ---
-        function handleGlobalAdd() {
-            const hash = window.location.hash.slice(1);
-            if (!hash) {
-                addItem('L0');
-            } else {
-                const [level, params] = hash.split('=');
-                const keys = params.split(',');
-                if (level === 'L1') addItem('L1', keys[0]);
-                else if (level === 'L2') addItem('L2', keys[0], keys[1]);
-            }
+  <script src="data.js"></script>
+  <script>
+    // ====== 持久化（localStorage）======
+    const STORE_KEY = "manual_portal_data_v1";
+
+    function deepClone(x){ return JSON.parse(JSON.stringify(x)); }
+
+    function loadData(){
+      const raw = localStorage.getItem(STORE_KEY);
+      if (raw) {
+        try { return JSON.parse(raw); } catch {}
+      }
+      // fallback to data.js
+      return deepClone(window.MANUAL_DATA || []);
+    }
+
+    function saveData(data){
+      localStorage.setItem(STORE_KEY, JSON.stringify(data));
+    }
+
+    let DATA = loadData();
+    let EDIT_MODE = false;
+
+    // ====== 工具：导出/导入 ======
+    function downloadText(filename, text){
+      const blob = new Blob([text], {type: "application/json"});
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = filename;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      URL.revokeObjectURL(url);
+    }
+
+    // ====== 渲染 ======
+    const app = document.getElementById("app");
+    const q = document.getElementById("q");
+    const btnEdit = document.getElementById("btnEdit");
+    const btnExport = document.getElementById("btnExport");
+    const fileImport = document.getElementById("fileImport");
+    const btnReset = document.getElementById("btnReset");
+
+    function textMatch(obj, ft){
+      if (!ft) return true;
+      const s = JSON.stringify(obj).toLowerCase();
+      return s.includes(ft);
+    }
+
+    function render(){
+      const ft = q.value.trim().toLowerCase();
+      app.innerHTML = "";
+
+      // 顶部：新增设备（编辑模式下）
+      if (EDIT_MODE){
+        const panel = document.createElement("div");
+        panel.className = "card";
+        panel.innerHTML = `
+          <div class="row">
+            <strong>新增设备</strong>
+            <input id="newDeviceName" placeholder="设备名，如 SST-AI100" />
+            <button id="addDevice" class="primary">添加</button>
+            <span class="muted small">添加后可继续新增分类/文档</span>
+          </div>
+        `;
+        app.appendChild(panel);
+
+        panel.querySelector("#addDevice").onclick = () => {
+          const name = panel.querySelector("#newDeviceName").value.trim();
+          if (!name) return alert("设备名不能为空");
+          DATA.push({ device: name, groups: [] });
+          saveData(DATA);
+          render();
+        };
+      }
+
+      // 设备列表
+      let any = false;
+      DATA.forEach((dev, di) => {
+        if (!textMatch(dev, ft)) return;
+
+        any = true;
+        const card = document.createElement("div");
+        card.className = "card";
+
+        const head = document.createElement("div");
+        head.className = "row";
+        head.style.justifyContent = "space-between";
+        head.style.alignItems = "flex-start";
+
+        const left = document.createElement("div");
+        left.innerHTML = `<strong>${escapeHtml(dev.device)}</strong>`;
+        head.appendChild(left);
+
+        const right = document.createElement("div");
+        right.className = "row";
+
+        if (EDIT_MODE){
+          const btnRename = document.createElement("button");
+          btnRename.textContent = "改名";
+          btnRename.onclick = () => {
+            const n = prompt("设备名：", dev.device);
+            if (n === null) return;
+            const name = n.trim();
+            if (!name) return alert("不能为空");
+            DATA[di].device = name;
+            saveData(DATA);
+            render();
+          };
+          right.appendChild(btnRename);
+
+          const btnDel = document.createElement("button");
+          btnDel.className = "danger";
+          btnDel.textContent = "删除设备";
+          btnDel.onclick = () => {
+            if (!confirm(`删除设备「${dev.device}」以及全部内容？`)) return;
+            DATA.splice(di, 1);
+            saveData(DATA);
+            render();
+          };
+          right.appendChild(btnDel);
         }
 
-        function addItem(level, devKey = null, modKey = null) {
-            const name = prompt("请输入名称:");
-            if (!name) return;
+        head.appendChild(right);
+        card.appendChild(head);
 
-            if (level === 'L0') {
-                const newKey = 'dev_' + Date.now();
-                EQUIPMENT_DATA[newKey] = { name: name, modules: {} };
-            } else if (level === 'L1') {
-                const newModKey = 'mod_' + Date.now();
-                EQUIPMENT_DATA[devKey].modules[newModKey] = { name: name, subcomponents: {} };
-            } else if (level === 'L2') {
-                const pdfFile = prompt("请输入 PDF 文件名 (如: 123.pdf):", "");
-                if (!pdfFile) return;
-                const subKey = 'sub_' + Date.now();
-                EQUIPMENT_DATA[devKey].modules[modKey].subcomponents = EQUIPMENT_DATA[devKey].modules[modKey].subcomponents || {};
-                EQUIPMENT_DATA[devKey].modules[modKey].subcomponents[subKey] = {
-                    name: name,
-                    processes: [{ name: name, pdf: "pdfs/" + pdfFile.replace('pdfs/', '') }]
-                };
-            }
-            handleRoute(); // 刷新当前页面显示
+        // 新增分类
+        if (EDIT_MODE){
+          const addGroup = document.createElement("div");
+          addGroup.className = "row";
+          addGroup.style.marginTop = "10px";
+          addGroup.innerHTML = `
+            <input id="ng_${di}" placeholder="新增分类，如 電気回路図" />
+            <button class="primary">添加分类</button>
+          `;
+          addGroup.querySelector("button").onclick = () => {
+            const name = addGroup.querySelector(`#ng_${di}`).value.trim();
+            if (!name) return alert("分类名不能为空");
+            DATA[di].groups.push({ name, items: [] });
+            saveData(DATA);
+            render();
+          };
+          card.appendChild(addGroup);
         }
 
-        // 导出数据
-        function exportData() {
-            const dataStr = "window.EQUIPMENT_DATA = " + JSON.stringify(EQUIPMENT_DATA, null, 4) + ";";
-            const blob = new Blob([dataStr], { type: "text/javascript" });
-            const url = URL.createObjectURL(blob);
+        // 分类与文档
+        (dev.groups || []).forEach((g, gi) => {
+          // 搜索过滤：分类/条目
+          if (ft){
+            const matchedItems = (g.items||[]).filter(it => textMatch(it, ft) || (g.name||"").toLowerCase().includes(ft));
+            if (!matchedItems.length && !(g.name||"").toLowerCase().includes(ft)) return;
+          }
+
+          const details = document.createElement("details");
+          details.open = true;
+
+          const summary = document.createElement("summary");
+          summary.className = "row";
+          summary.style.justifyContent = "space-between";
+
+          const sLeft = document.createElement("div");
+          sLeft.innerHTML = `<strong>${escapeHtml(g.name)}</strong>`;
+          summary.appendChild(sLeft);
+
+          const sRight = document.createElement("div");
+          sRight.className = "row";
+
+          if (EDIT_MODE){
+            const btnGName = document.createElement("button");
+            btnGName.textContent = "改分类名";
+            btnGName.onclick = (e) => {
+              e.preventDefault();
+              const n = prompt("分类名：", g.name);
+              if (n === null) return;
+              const name = n.trim();
+              if (!name) return alert("不能为空");
+              DATA[di].groups[gi].name = name;
+              saveData(DATA);
+              render();
+            };
+            sRight.appendChild(btnGName);
+
+            const btnGDel = document.createElement("button");
+            btnGDel.className = "danger";
+            btnGDel.textContent = "删分类";
+            btnGDel.onclick = (e) => {
+              e.preventDefault();
+              if (!confirm(`删除分类「${g.name}」以及其中全部文档？`)) return;
+              DATA[di].groups.splice(gi, 1);
+              saveData(DATA);
+              render();
+            };
+            sRight.appendChild(btnGDel);
+          }
+
+          summary.appendChild(sRight);
+          details.appendChild(summary);
+
+          // 新增文档
+          if (EDIT_MODE){
+            const addItem = document.createElement("div");
+            addItem.className = "panel";
+            addItem.style.marginTop = "10px";
+            addItem.innerHTML = `
+              <div class="row"><strong>新增文档</strong></div>
+              <div class="grid">
+                <div class="panel">
+                  <div class="small muted">标题</div>
+                  <input id="it_title_${di}_${gi}" placeholder="如 WPH報告書" style="width:100%;" />
+                </div>
+                <div class="panel">
+                  <div class="small muted">路径（相对仓库根目录）</div>
+                  <input id="it_path_${di}_${gi}" placeholder="pdfs/xxx.pdf" style="width:100%;" />
+                </div>
+              </div>
+              <div class="row" style="margin-top:10px;">
+                <button class="primary">添加文档</button>
+                <span class="muted small">路径区分大小写；建议都放在 <span class="kbd">pdfs/</span> 下</span>
+              </div>
+            `;
+            addItem.querySelector("button").onclick = () => {
+              const title = addItem.querySelector(`#it_title_${di}_${gi}`).value.trim();
+              const path  = addItem.querySelector(`#it_path_${di}_${gi}`).value.trim();
+              if (!title || !path) return alert("标题和路径都不能为空");
+              DATA[di].groups[gi].items.push({ title, path });
+              saveData(DATA);
+              render();
+            };
+            details.appendChild(addItem);
+          }
+
+          // 文档列表
+          (g.items || []).forEach((it, ii) => {
+            if (ft && !textMatch({device:dev.device, group:g.name, ...it}, ft)) return;
+
+            const row = document.createElement("div");
+            row.className = "item";
+
+            const left = document.createElement("div");
+            left.innerHTML = `
+              <div>${escapeHtml(it.title)}</div>
+              <div class="muted small">${escapeHtml(it.path)}</div>
+            `;
+            row.appendChild(left);
+
+            const right = document.createElement("div");
+            right.className = "row";
+
             const a = document.createElement("a");
-            a.href = url;
-            a.download = "data.js";
-            a.click();
-            alert("账本已生成！请覆盖文件夹里的 data.js 文件。");
-        }
+            a.className = "btn";
+            a.href = it.path;
+            a.target = "_blank";
+            a.rel = "noopener";
+            a.textContent = "打开";
+            right.appendChild(a);
 
-        // 排序
-        function getSortedKeys(obj) {
-            if (!obj) return [];
-            return Object.keys(obj).sort((a, b) => obj[a].name.localeCompare(obj[b].name, 'zh-Hans-CN'));
-        }
+            if (EDIT_MODE){
+              const btnE = document.createElement("button");
+              btnE.textContent = "编辑";
+              btnE.onclick = () => {
+                const nt = prompt("标题：", it.title);
+                if (nt === null) return;
+                const np = prompt("路径：", it.path);
+                if (np === null) return;
+                const title = nt.trim(), path = np.trim();
+                if (!title || !path) return alert("不能为空");
+                DATA[di].groups[gi].items[ii] = { title, path };
+                saveData(DATA);
+                render();
+              };
+              right.appendChild(btnE);
 
-        // 管理弹窗
-        function openModal(e, level, k1, k2 = null, k3 = null) {
-            e.stopPropagation();
-            let obj;
-            if (level === 'L0') obj = EQUIPMENT_DATA[k1];
-            else if (level === 'L1') obj = EQUIPMENT_DATA[k1].modules[k2];
-            else if (level === 'L2') obj = EQUIPMENT_DATA[k1].modules[k2].subcomponents[k3];
-            
-            document.getElementById('modalTitle').innerText = "管理: " + obj.name;
-            modalOverlay.style.display = 'flex';
-            
-            document.getElementById('modalRenameBtn').onclick = () => {
-                const newName = prompt("新名称:", obj.name);
-                if (newName) { obj.name = newName; closeModal(); handleRoute(); }
-            };
-            document.getElementById('modalDeleteBtn').onclick = () => {
-                if (confirm("确定要删除吗？")) {
-                    if (level === 'L0') delete EQUIPMENT_DATA[k1];
-                    else if (level === 'L1') delete EQUIPMENT_DATA[k1].modules[k2];
-                    else if (level === 'L2') delete EQUIPMENT_DATA[k1].modules[k2].subcomponents[k3];
-                    closeModal(); handleRoute();
-                }
-            };
-        }
-        function closeModal() { modalOverlay.style.display = 'none'; }
-
-        // 渲染函数组
-        function renderL0() {
-            pageTitle.innerText = '设备总览 (L0)';
-            contentDiv.innerHTML = ''; backButton.style.display = 'none';
-            getSortedKeys(EQUIPMENT_DATA).forEach(key => {
-                contentDiv.innerHTML += `
-                    <div class="menu-item-wrapper">
-                        <div class="menu-item" onclick="window.location.hash='#L1=${key}'"><h2>${EQUIPMENT_DATA[key].name}</h2></div>
-                        <button class="edit-btn" onclick="openModal(event, 'L0', '${key}')">管理</button>
-                    </div>`;
-            });
-        }
-
-        function renderL1(dk) {
-            const dev = EQUIPMENT_DATA[dk];
-            pageTitle.innerText = dev.name + ' (L1)';
-            contentDiv.innerHTML = ''; backButton.style.display = 'block';
-            getSortedKeys(dev.modules).forEach(mk => {
-                contentDiv.innerHTML += `
-                    <div class="menu-item-wrapper">
-                        <div class="menu-item" onclick="window.location.hash='#L2=${dk},${mk}'"><h2>${dev.modules[mk].name}</h2></div>
-                        <button class="edit-btn" onclick="openModal(event, 'L1', '${dk}', '${mk}')">管理</button>
-                    </div>`;
-            });
-        }
-
-        function renderL2(dk, mk) {
-            const mod = EQUIPMENT_DATA[dk].modules[mk];
-            pageTitle.innerText = mod.name + ' (L2)';
-            contentDiv.innerHTML = ''; backButton.style.display = 'block';
-            getSortedKeys(mod.subcomponents || {}).forEach(sk => {
-                let html = `<div class="menu-item-wrapper"><div class="menu-item"><h2>${mod.subcomponents[sk].name}</h2>`;
-                mod.subcomponents[sk].processes.forEach(p => { html += `<a href="${p.pdf}" target="_blank" class="pdf-link">📄 点击打开 PDF 验收手册</a>`; });
-                html += `</div><button class="edit-btn" onclick="openModal(event, 'L2', '${dk}', '${mk}', '${sk}')">管理</button></div>`;
-                contentDiv.innerHTML += html;
-            });
-        }
-
-        function handleRoute() {
-            const hash = window.location.hash.slice(1);
-            if (!hash) { renderL0(); return; }
-            const [level, params] = hash.split('=');
-            const keys = params.split(',');
-            if (level === 'L1') { 
-                renderL1(keys[0]); 
-                backButton.onclick = () => window.location.hash = ''; 
-            } else if (level === 'L2') { 
-                renderL2(keys[0], keys[1]); 
-                backButton.onclick = () => window.location.hash = `#L1=${keys[0]}`; 
+              const btnD = document.createElement("button");
+              btnD.className = "danger";
+              btnD.textContent = "删除";
+              btnD.onclick = () => {
+                if (!confirm(`删除文档「${it.title}」？`)) return;
+                DATA[di].groups[gi].items.splice(ii, 1);
+                saveData(DATA);
+                render();
+              };
+              right.appendChild(btnD);
             }
-        }
 
-        window.addEventListener('hashchange', handleRoute);
-        handleRoute(); 
-    </script>
+            row.appendChild(right);
+            details.appendChild(row);
+          });
+
+          card.appendChild(details);
+        });
+
+        app.appendChild(card);
+      });
+
+      if (!any){
+        app.innerHTML = `<div class="card">没有匹配结果。</div>`;
+      }
+    }
+
+    function escapeHtml(s){
+      return String(s ?? "").replace(/[&<>"']/g, c => ({
+        "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
+      }[c]));
+    }
+
+    // ====== 事件 ======
+    q.addEventListener("input", render);
+
+    btnEdit.onclick = () => {
+      EDIT_MODE = !EDIT_MODE;
+      btnEdit.textContent = `编辑模式：${EDIT_MODE ? "开" : "关"}`;
+      render();
+    };
+
+    btnExport.onclick = () => {
+      downloadText("manual-data.json", JSON.stringify(DATA, null, 2));
+    };
+
+    fileImport.addEventListener("change", async (e) => {
+      const f = e.target.files?.[0];
+      if (!f) return;
+      try{
+        const txt = await f.text();
+        const obj = JSON.parse(txt);
+        if (!Array.isArray(obj)) throw new Error("JSON 顶层必须是数组");
+        DATA = obj;
+        saveData(DATA);
+        alert("导入成功（已保存到本地）");
+        render();
+      }catch(err){
+        alert("导入失败：" + err.message);
+      }finally{
+        fileImport.value = "";
+      }
+    });
+
+    btnReset.onclick = () => {
+      if (!confirm("清空本地保存并恢复 data.js 默认数据？")) return;
+      localStorage.removeItem(STORE_KEY);
+      DATA = loadData();
+      alert("已恢复默认");
+      render();
+    };
+
+    // 首次渲染
+    render();
+  </script>
 </body>
 </html>
