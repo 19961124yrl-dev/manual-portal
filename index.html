@@ -1,400 +1,647 @@
-<!doctype html>
-<html lang="zh">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>设备文档门户</title>
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>AI
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>主任级数字手册 - 稳定账本版</title>
+  <script src="data.js"></script>
   <style>
-    body{font-family:system-ui,-apple-system,Segoe UI,Arial;margin:16px;}
-    .top{display:flex;gap:10px;align-items:center;justify-content:space-between;flex-wrap:wrap;}
-    .card{border:1px solid #ddd;border-radius:12px;padding:14px;margin:12px 0;}
-    h1{margin:0 0 8px;font-size:20px;}
-    h2{margin:14px 0 8px;font-size:16px;}
-    .muted{color:#666;font-size:12px;}
-    input,textarea,select{padding:8px;border:1px solid #ccc;border-radius:10px;}
-    button{padding:8px 10px;border:1px solid #ccc;border-radius:10px;background:#fff;cursor:pointer;}
-    button.primary{border-color:#222;}
-    button.danger{border-color:#c33;color:#c33;}
-    .row{display:flex;gap:8px;align-items:center;flex-wrap:wrap;}
-    .item{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 0;border-top:1px dashed #eee;}
-    .item:first-child{border-top:none;}
-    a.btn{text-decoration:none;border:1px solid #ccc;border-radius:10px;padding:8px 10px;}
-    details{margin-top:10px;}
-    summary{cursor:pointer;}
-    .grid{display:grid;grid-template-columns:1fr;gap:10px;}
-    @media (min-width: 900px){ .grid{grid-template-columns:1fr 1fr;} }
-    .panel{border:1px solid #eee;border-radius:12px;padding:12px;}
-    .small{font-size:12px;}
-    .kbd{font-family:ui-monospace,Menlo,Consolas,monospace;background:#f7f7f7;padding:2px 6px;border-radius:8px;border:1px solid #eee;}
+    body { margin: 0; font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif; background-color: #f4f4f4; color: #333; }
+
+    header {
+      background-color: #004d99; color: white; padding: 15px;
+      text-align: center; position: relative; display: flex;
+      justify-content: center; align-items: center; min-height: 50px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    }
+    header h1 { margin: 0; font-size: 1.3rem; max-width: 60%; }
+
+    .header-controls {
+      position: absolute; right: 10px; top: 50%; transform: translateY(-50%);
+      display: flex; gap: 8px; flex-wrap: wrap; justify-content: flex-end;
+    }
+    .ctrl-btn {
+      border: none; border-radius: 4px; color: white; padding: 8px 12px;
+      cursor: pointer; font-weight: bold; font-size: 14px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    .btn-export { background-color: #f39c12; }
+    .btn-add { background-color: #28a745; font-size: 18px; line-height: 1; }
+    .btn-scan { background-color: #8e44ad; }
+
+    .container { padding: 15px; max-width: 900px; margin: 0 auto; }
+
+    /* L0/L1 维持你原来的列表 */
+    .menu-item-wrapper { display: flex; align-items: flex-start; margin-bottom: 12px; gap: 10px; }
+    .menu-item { background: white; border: 1px solid #ddd; padding: 18px; border-radius: 6px; cursor: pointer; flex-grow: 1; transition: 0.2s; }
+    .menu-item:hover { background-color: #fcfcfc; border-color: #004d99; }
+    .menu-item h2 { margin: 0; font-size: 1.1rem; }
+
+    .edit-btn { background: #007bff; color: white; border: none; padding: 10px; border-radius: 5px; cursor: pointer; font-weight: bold; min-width: 60px; }
+    .back-button { display: block; width: 100%; margin-bottom: 12px; padding: 12px; background: #6c757d; color: white; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; }
+
+    /* PDF 按钮保持原样 */
+    .pdf-link { display: block; background: #eef7ff; color: #004d99; padding: 15px; margin-top: 10px; border-radius: 5px; text-decoration: none; border-left: 5px solid #004d99; font-weight: bold; }
+
+    /* 弹窗 */
+    .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 1000; justify-content: center; align-items: center; }
+    .modal { background: white; padding: 25px; border-radius: 12px; width: 85%; max-width: 350px; text-align: center; box-shadow: 0 5px 20px rgba(0,0,0,0.3); }
+    .modal-btns { display: flex; flex-direction: column; gap: 10px; margin-top: 20px; }
+    .btn-modal { padding: 12px; border: none; border-radius: 6px; cursor: pointer; font-size: 16px; font-weight: bold; }
+
+    /* ✅ 你原来的“小图 grid”，保留（给预览/备用用） */
+    .asset-grid{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap:10px;
+      margin-top:10px;
+    }
+    @media (max-width: 700px){
+      .asset-grid{ grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 450px){
+      .asset-grid{ grid-template-columns: repeat(1, 1fr); }
+    }
+    .asset-tile{
+      background:#fff;
+      border:1px solid #ddd;
+      border-radius:10px;
+      overflow:hidden;
+      cursor:pointer;
+      transition:0.15s;
+    }
+    .asset-tile:hover{
+      border-color:#004d99;
+      transform: translateY(-1px);
+    }
+    .asset-thumb{
+      width:100%;
+      height:160px;
+      object-fit:cover;
+      display:block;
+    }
+
+    .hint { font-size:12px; color:#666; line-height:1.6; margin-top:8px; text-align:left; }
+    .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; }
+
+    /* =====================================================
+       ✅ 新增：L2 相册式平铺（解决“图片排列/手机不友好”）
+       ===================================================== */
+
+    /* L2 页面整体网格：自动适配列数 */
+    .l2-grid{
+      display:grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 12px;
+    }
+
+    .l2-card{
+      background:#fff;
+      border:1px solid #ddd;
+      border-radius:12px;
+      overflow:hidden;
+      cursor:pointer;
+      transition: 0.15s;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+      position: relative;
+      display:flex;
+      flex-direction:column;
+    }
+    .l2-card:hover{
+      border-color:#004d99;
+      transform: translateY(-1px);
+    }
+
+    .l2-thumb{
+      width:100%;
+      height: 160px;
+      object-fit: cover;
+      display:block;
+      background:#eee;
+    }
+
+    .l2-body{
+      padding: 10px 12px 12px;
+      display:flex;
+      flex-direction:column;
+      gap: 6px;
+      min-height: 74px;
+    }
+
+    .l2-title{
+      font-size: 14px;
+      font-weight: 700;
+      line-height: 1.35;
+      margin: 0;
+    }
+    .l2-sub{
+      font-size: 12px;
+      color:#666;
+      line-height: 1.35;
+    }
+
+    /* 右上角管理按钮：不占布局宽度，不挤压图片/网格 */
+    .l2-manage{
+      position:absolute;
+      top: 10px;
+      right: 10px;
+      border:none;
+      background: rgba(0,77,153,0.92);
+      color:#fff;
+      padding: 8px 10px;
+      border-radius: 10px;
+      cursor:pointer;
+      font-weight: 700;
+      font-size: 12px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.18);
+    }
+    .l2-manage:hover{
+      background: rgba(0,77,153,1);
+    }
+
+    /* 小屏稍微增高封面，方便点按 */
+    @media (max-width: 420px){
+      .l2-thumb{ height: 180px; }
+    }
+
+    /* L2 预览弹窗的宽度保持你原来 */
   </style>
 </head>
 <body>
-  <div class="top">
-    <div>
-      <h1>设备文档门户</h1>
-      <div class="muted">提示：编辑内容默认保存到本地浏览器（同设备同浏览器有效）。可用“导出/导入”同步到别的设备。</div>
-    </div>
-    <div class="row">
-      <input id="q" placeholder="搜索：设备/分类/标题/路径…" />
-      <button id="btnEdit" class="primary">编辑模式：关</button>
-      <button id="btnExport">导出 JSON</button>
-      <label class="row small" style="gap:6px;">
-        <span class="kbd">导入</span>
-        <input id="fileImport" type="file" accept="application/json" />
-      </label>
-      <button id="btnReset" class="danger">清空本地并恢复默认</button>
+<header>
+  <h1 id="pageTitle">主任级数字手册</h1>
+  <div class="header-controls">
+    <button class="ctrl-btn btn-export" onclick="exportData()" title="下载最新 data.js">💾 导出</button>
+    <button id="scanBtn" class="ctrl-btn btn-scan" onclick="triggerLocalScan()" title="仅本地：扫描目录，把文件放入当前文件夹">🧭 本地扫描</button>
+    <button class="ctrl-btn btn-add" onclick="handleGlobalAdd()" title="添加新项">＋</button>
+  </div>
+</header>
+
+<div class="container">
+  <button id="backButton" class="back-button" style="display:none;">← 返回上一级</button>
+  <div id="content"></div>
+  <div class="hint" id="localHint" style="display:none;">
+    本地扫描说明：你需要先进入某个“文件夹”（例如【出荷写真】）再点扫描。扫描结果会直接追加到当前文件夹下。<br/>
+    你可以选根目录，也可以直接选 <span class="mono">images</span> 或 <span class="mono">pdfs</span>，甚至直接选某个具体分类文件夹。<br/>
+    扫描后记得点 <strong>💾 导出</strong> 覆盖 <span class="mono">data.js</span>。
+  </div>
+</div>
+
+<!-- 管理弹窗 -->
+<div id="modalOverlay" class="modal-overlay">
+  <div class="modal">
+    <h3 id="modalTitle">管理项目</h3>
+    <div class="modal-btns">
+      <button class="btn-modal" style="background:#007bff;color:white;" id="modalRenameBtn">✏️ 修改名称</button>
+      <button class="btn-modal" style="background:#ff4d4d;color:white;" id="modalDeleteBtn">🗑️ 删除此项</button>
+      <button class="btn-modal" style="background:#eee;color:#666;" onclick="closeModal()">取消</button>
     </div>
   </div>
+</div>
 
-  <div id="app"></div>
+<!-- 预览弹窗 -->
+<div id="viewerOverlay" class="modal-overlay">
+  <div class="modal" style="max-width: 980px; width: 92%; padding: 12px; text-align:left;">
+    <div style="display:flex; justify-content:space-between; align-items:center; gap:10px;">
+      <h3 id="viewerTitle" style="margin:0;">预览</h3>
+      <button class="btn-modal" style="background:#eee;color:#666; padding:8px 12px;" onclick="closeViewer()">关闭</button>
+    </div>
+    <div id="viewerBody" style="margin-top:10px; text-align:center;"></div>
+  </div>
+</div>
 
-  <script src="data.js"></script>
-  <script>
-    // ====== 持久化（localStorage）======
-    const STORE_KEY = "manual_portal_data_v1";
+<!-- 本地扫描：目录选择器 -->
+<input id="dirPicker" type="file" style="display:none;" webkitdirectory multiple />
 
-    function deepClone(x){ return JSON.parse(JSON.stringify(x)); }
+<script>
+  window.EQUIPMENT_DATA = window.EQUIPMENT_DATA || {};
 
-    function loadData(){
-      const raw = localStorage.getItem(STORE_KEY);
-      if (raw) {
-        try { return JSON.parse(raw); } catch {}
+  const contentDiv = document.getElementById('content');
+  const pageTitle = document.getElementById('pageTitle');
+  const backButton = document.getElementById('backButton');
+  const modalOverlay = document.getElementById('modalOverlay');
+
+  const viewerOverlay = document.getElementById('viewerOverlay');
+  const viewerTitle = document.getElementById('viewerTitle');
+  const viewerBody = document.getElementById('viewerBody');
+
+  const scanBtn = document.getElementById('scanBtn');
+  const localHint = document.getElementById('localHint');
+  const dirPicker = document.getElementById('dirPicker');
+
+  // ===== 工具函数 =====
+  function isImageExt(ext){ return ['png','jpg','jpeg','webp','gif','bmp','svg'].includes(ext); }
+  function safeJsString(s){ return (s||'').replace(/\\/g,'\\\\').replace(/'/g,"\\'"); }
+  function normalize(s){ return (s||'').trim().replace(/^\/+|\/+$/g,''); }
+  function safePathSegment(name){
+  // 把设备名变成“可当文件夹名”的形式（去掉斜杠等危险字符）
+  return (name || 'unknown')
+    .trim()
+    .replace(/[\\\/:*?"<>|]/g, '_')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+function getDeviceFolderName(dk){
+  const devName = EQUIPMENT_DATA?.[dk]?.name || dk || 'unknown';
+  return safePathSegment(devName);
+}
+
+  function baseNameNoExt(path){
+    const name = (path || '').split('/').pop() || '';
+    const i = name.lastIndexOf('.');
+    return i > 0 ? name.slice(0,i) : name;
+  }
+  function getSortedKeys(obj){
+    if (!obj) return [];
+    return Object.keys(obj).sort((a,b)=>(obj[a].name||'').localeCompare((obj[b].name||''),'zh-Hans-CN'));
+  }
+
+  // 给 L2 卡片用：生成占位封面
+  function makePlaceholderDataUri(text){
+    const t = (text || 'NO COVER').slice(0, 20);
+    const svg = `
+      <svg xmlns="http://www.w3.org/2000/svg" width="800" height="450">
+        <rect width="100%" height="100%" fill="#e5e7eb"/>
+        <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle"
+          fill="#6b7280" font-size="28" font-family="Arial">${t.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}</text>
+      </svg>`;
+    return "data:image/svg+xml;charset=UTF-8," + encodeURIComponent(svg);
+  }
+
+  // ===== 上线隐藏本地扫描 =====
+  (function initLocalScanAvailability(){
+    const isFile = location.protocol === 'file:';
+    const isLocalHost = ['localhost','127.0.0.1'].includes(location.hostname);
+    const ok = isFile || isLocalHost;
+    if(ok){
+      localHint.style.display = 'block';
+    }else{
+      scanBtn.style.display = 'none';
+    }
+  })();
+
+  // ===== 读取“当前所在文件夹（模块）” =====
+  function getCurrentRoute(){
+    const hash = window.location.hash.slice(1);
+    if(!hash) return { level:'L0', dk:null, mk:null };
+    const [level, params] = hash.split('=');
+    const keys = (params || '').split(',');
+    if(level === 'L1') return { level:'L1', dk: keys[0], mk:null };
+    if(level === 'L2') return { level:'L2', dk: keys[0], mk: keys[1] };
+    return { level:'L0', dk:null, mk:null };
+  }
+
+  // ===== 导出 =====
+  function exportData(){
+    const dataStr = "window.EQUIPMENT_DATA = " + JSON.stringify(EQUIPMENT_DATA, null, 4) + ";";
+    const blob = new Blob([dataStr], { type: "text/javascript" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "data.js";
+    a.click();
+    alert("已导出 data.js（请用它覆盖项目里的 data.js，然后刷新页面）");
+  }
+
+  // ===== 手动添加（保留） =====
+  function handleGlobalAdd() {
+    const hash = window.location.hash.slice(1);
+    if (!hash) addItem('L0');
+    else {
+      const [level, params] = hash.split('=');
+      const keys = params.split(',');
+      if (level === 'L1') addItem('L1', keys[0]);
+      else if (level === 'L2') addItem('L2', keys[0], keys[1]);
+    }
+  }
+
+  function addItem(level, devKey=null, modKey=null){
+    const name = prompt("请输入名称:");
+    if(!name) return;
+
+    if(level==='L0'){
+      const newKey='dev_'+Date.now();
+      EQUIPMENT_DATA[newKey]={ name, modules:{} };
+    }else if(level==='L1'){
+      const newModKey='mod_'+Date.now();
+      EQUIPMENT_DATA[devKey].modules = EQUIPMENT_DATA[devKey].modules || {};
+      EQUIPMENT_DATA[devKey].modules[newModKey]={ name, subcomponents:{} };
+    }else if(level==='L2'){
+      const file = prompt("输入文件相对路径（含设备名/子目录），例如：AI12/xx.pdf 或 AI12/a.png","");
+      if(!file) return;
+      const clean0 = file.replace(/^\/?pdfs\//,'').replace(/^\/?images\//,'');
+      const ext = (clean0.split('.').pop()||'').toLowerCase();
+
+      const devFolder = getDeviceFolderName(devKey);
+
+      // 如果用户没写 “设备名/”，就自动补上
+      let clean = clean0;
+      const firstSeg = (clean.split('/')[0] || '').trim();
+      if(firstSeg !== devFolder){
+        clean = `${devFolder}/${clean}`;
       }
-      // fallback to data.js
-      return deepClone(window.MANUAL_DATA || []);
+
+      const path = (ext==='pdf') ? ("pdfs/"+clean) : ("images/"+clean);
+
+
+      const mod = EQUIPMENT_DATA[devKey].modules[modKey];
+      mod.subcomponents = mod.subcomponents || {};
+      const subKey='sub_'+Date.now();
+      mod.subcomponents[subKey]={
+        name,
+        processes:[{ name, file:path, ext }]
+      };
     }
+    handleRoute();
+  }
 
-    function saveData(data){
-      localStorage.setItem(STORE_KEY, JSON.stringify(data));
-    }
+  // ===== 管理弹窗 =====
+  function openModal(e, level, k1, k2=null, k3=null){
+    e.stopPropagation();
+    let obj;
+    if(level==='L0') obj=EQUIPMENT_DATA[k1];
+    else if(level==='L1') obj=EQUIPMENT_DATA[k1].modules[k2];
+    else obj=EQUIPMENT_DATA[k1].modules[k2].subcomponents[k3];
 
-    let DATA = loadData();
-    let EDIT_MODE = false;
+    document.getElementById('modalTitle').innerText = "管理: " + (obj?.name||'');
+    modalOverlay.style.display='flex';
 
-    // ====== 工具：导出/导入 ======
-    function downloadText(filename, text){
-      const blob = new Blob([text], {type: "application/json"});
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement("a");
-      a.href = url;
-      a.download = filename;
-      document.body.appendChild(a);
-      a.click();
-      a.remove();
-      URL.revokeObjectURL(url);
-    }
-
-    // ====== 渲染 ======
-    const app = document.getElementById("app");
-    const q = document.getElementById("q");
-    const btnEdit = document.getElementById("btnEdit");
-    const btnExport = document.getElementById("btnExport");
-    const fileImport = document.getElementById("fileImport");
-    const btnReset = document.getElementById("btnReset");
-
-    function textMatch(obj, ft){
-      if (!ft) return true;
-      const s = JSON.stringify(obj).toLowerCase();
-      return s.includes(ft);
-    }
-
-    function render(){
-      const ft = q.value.trim().toLowerCase();
-      app.innerHTML = "";
-
-      // 顶部：新增设备（编辑模式下）
-      if (EDIT_MODE){
-        const panel = document.createElement("div");
-        panel.className = "card";
-        panel.innerHTML = `
-          <div class="row">
-            <strong>新增设备</strong>
-            <input id="newDeviceName" placeholder="设备名，如 SST-AI100" />
-            <button id="addDevice" class="primary">添加</button>
-            <span class="muted small">添加后可继续新增分类/文档</span>
-          </div>
-        `;
-        app.appendChild(panel);
-
-        panel.querySelector("#addDevice").onclick = () => {
-          const name = panel.querySelector("#newDeviceName").value.trim();
-          if (!name) return alert("设备名不能为空");
-          DATA.push({ device: name, groups: [] });
-          saveData(DATA);
-          render();
-        };
-      }
-
-      // 设备列表
-      let any = false;
-      DATA.forEach((dev, di) => {
-        if (!textMatch(dev, ft)) return;
-
-        any = true;
-        const card = document.createElement("div");
-        card.className = "card";
-
-        const head = document.createElement("div");
-        head.className = "row";
-        head.style.justifyContent = "space-between";
-        head.style.alignItems = "flex-start";
-
-        const left = document.createElement("div");
-        left.innerHTML = `<strong>${escapeHtml(dev.device)}</strong>`;
-        head.appendChild(left);
-
-        const right = document.createElement("div");
-        right.className = "row";
-
-        if (EDIT_MODE){
-          const btnRename = document.createElement("button");
-          btnRename.textContent = "改名";
-          btnRename.onclick = () => {
-            const n = prompt("设备名：", dev.device);
-            if (n === null) return;
-            const name = n.trim();
-            if (!name) return alert("不能为空");
-            DATA[di].device = name;
-            saveData(DATA);
-            render();
-          };
-          right.appendChild(btnRename);
-
-          const btnDel = document.createElement("button");
-          btnDel.className = "danger";
-          btnDel.textContent = "删除设备";
-          btnDel.onclick = () => {
-            if (!confirm(`删除设备「${dev.device}」以及全部内容？`)) return;
-            DATA.splice(di, 1);
-            saveData(DATA);
-            render();
-          };
-          right.appendChild(btnDel);
-        }
-
-        head.appendChild(right);
-        card.appendChild(head);
-
-        // 新增分类
-        if (EDIT_MODE){
-          const addGroup = document.createElement("div");
-          addGroup.className = "row";
-          addGroup.style.marginTop = "10px";
-          addGroup.innerHTML = `
-            <input id="ng_${di}" placeholder="新增分类，如 電気回路図" />
-            <button class="primary">添加分类</button>
-          `;
-          addGroup.querySelector("button").onclick = () => {
-            const name = addGroup.querySelector(`#ng_${di}`).value.trim();
-            if (!name) return alert("分类名不能为空");
-            DATA[di].groups.push({ name, items: [] });
-            saveData(DATA);
-            render();
-          };
-          card.appendChild(addGroup);
-        }
-
-        // 分类与文档
-        (dev.groups || []).forEach((g, gi) => {
-          // 搜索过滤：分类/条目
-          if (ft){
-            const matchedItems = (g.items||[]).filter(it => textMatch(it, ft) || (g.name||"").toLowerCase().includes(ft));
-            if (!matchedItems.length && !(g.name||"").toLowerCase().includes(ft)) return;
-          }
-
-          const details = document.createElement("details");
-          details.open = true;
-
-          const summary = document.createElement("summary");
-          summary.className = "row";
-          summary.style.justifyContent = "space-between";
-
-          const sLeft = document.createElement("div");
-          sLeft.innerHTML = `<strong>${escapeHtml(g.name)}</strong>`;
-          summary.appendChild(sLeft);
-
-          const sRight = document.createElement("div");
-          sRight.className = "row";
-
-          if (EDIT_MODE){
-            const btnGName = document.createElement("button");
-            btnGName.textContent = "改分类名";
-            btnGName.onclick = (e) => {
-              e.preventDefault();
-              const n = prompt("分类名：", g.name);
-              if (n === null) return;
-              const name = n.trim();
-              if (!name) return alert("不能为空");
-              DATA[di].groups[gi].name = name;
-              saveData(DATA);
-              render();
-            };
-            sRight.appendChild(btnGName);
-
-            const btnGDel = document.createElement("button");
-            btnGDel.className = "danger";
-            btnGDel.textContent = "删分类";
-            btnGDel.onclick = (e) => {
-              e.preventDefault();
-              if (!confirm(`删除分类「${g.name}」以及其中全部文档？`)) return;
-              DATA[di].groups.splice(gi, 1);
-              saveData(DATA);
-              render();
-            };
-            sRight.appendChild(btnGDel);
-          }
-
-          summary.appendChild(sRight);
-          details.appendChild(summary);
-
-          // 新增文档
-          if (EDIT_MODE){
-            const addItem = document.createElement("div");
-            addItem.className = "panel";
-            addItem.style.marginTop = "10px";
-            addItem.innerHTML = `
-              <div class="row"><strong>新增文档</strong></div>
-              <div class="grid">
-                <div class="panel">
-                  <div class="small muted">标题</div>
-                  <input id="it_title_${di}_${gi}" placeholder="如 WPH報告書" style="width:100%;" />
-                </div>
-                <div class="panel">
-                  <div class="small muted">路径（相对仓库根目录）</div>
-                  <input id="it_path_${di}_${gi}" placeholder="pdfs/xxx.pdf" style="width:100%;" />
-                </div>
-              </div>
-              <div class="row" style="margin-top:10px;">
-                <button class="primary">添加文档</button>
-                <span class="muted small">路径区分大小写；建议都放在 <span class="kbd">pdfs/</span> 下</span>
-              </div>
-            `;
-            addItem.querySelector("button").onclick = () => {
-              const title = addItem.querySelector(`#it_title_${di}_${gi}`).value.trim();
-              const path  = addItem.querySelector(`#it_path_${di}_${gi}`).value.trim();
-              if (!title || !path) return alert("标题和路径都不能为空");
-              DATA[di].groups[gi].items.push({ title, path });
-              saveData(DATA);
-              render();
-            };
-            details.appendChild(addItem);
-          }
-
-          // 文档列表
-          (g.items || []).forEach((it, ii) => {
-            if (ft && !textMatch({device:dev.device, group:g.name, ...it}, ft)) return;
-
-            const row = document.createElement("div");
-            row.className = "item";
-
-            const left = document.createElement("div");
-            left.innerHTML = `
-              <div>${escapeHtml(it.title)}</div>
-              <div class="muted small">${escapeHtml(it.path)}</div>
-            `;
-            row.appendChild(left);
-
-            const right = document.createElement("div");
-            right.className = "row";
-
-            const a = document.createElement("a");
-            a.className = "btn";
-            a.href = it.path;
-            a.target = "_blank";
-            a.rel = "noopener";
-            a.textContent = "打开";
-            right.appendChild(a);
-
-            if (EDIT_MODE){
-              const btnE = document.createElement("button");
-              btnE.textContent = "编辑";
-              btnE.onclick = () => {
-                const nt = prompt("标题：", it.title);
-                if (nt === null) return;
-                const np = prompt("路径：", it.path);
-                if (np === null) return;
-                const title = nt.trim(), path = np.trim();
-                if (!title || !path) return alert("不能为空");
-                DATA[di].groups[gi].items[ii] = { title, path };
-                saveData(DATA);
-                render();
-              };
-              right.appendChild(btnE);
-
-              const btnD = document.createElement("button");
-              btnD.className = "danger";
-              btnD.textContent = "删除";
-              btnD.onclick = () => {
-                if (!confirm(`删除文档「${it.title}」？`)) return;
-                DATA[di].groups[gi].items.splice(ii, 1);
-                saveData(DATA);
-                render();
-              };
-              right.appendChild(btnD);
-            }
-
-            row.appendChild(right);
-            details.appendChild(row);
-          });
-
-          card.appendChild(details);
-        });
-
-        app.appendChild(card);
-      });
-
-      if (!any){
-        app.innerHTML = `<div class="card">没有匹配结果。</div>`;
-      }
-    }
-
-    function escapeHtml(s){
-      return String(s ?? "").replace(/[&<>"']/g, c => ({
-        "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
-      }[c]));
-    }
-
-    // ====== 事件 ======
-    q.addEventListener("input", render);
-
-    btnEdit.onclick = () => {
-      EDIT_MODE = !EDIT_MODE;
-      btnEdit.textContent = `编辑模式：${EDIT_MODE ? "开" : "关"}`;
-      render();
+    document.getElementById('modalRenameBtn').onclick=()=>{
+      const newName=prompt("新名称:", obj.name);
+      if(newName){ obj.name=newName; closeModal(); handleRoute(); }
     };
-
-    btnExport.onclick = () => {
-      downloadText("manual-data.json", JSON.stringify(DATA, null, 2));
-    };
-
-    fileImport.addEventListener("change", async (e) => {
-      const f = e.target.files?.[0];
-      if (!f) return;
-      try{
-        const txt = await f.text();
-        const obj = JSON.parse(txt);
-        if (!Array.isArray(obj)) throw new Error("JSON 顶层必须是数组");
-        DATA = obj;
-        saveData(DATA);
-        alert("导入成功（已保存到本地）");
-        render();
-      }catch(err){
-        alert("导入失败：" + err.message);
-      }finally{
-        fileImport.value = "";
+    document.getElementById('modalDeleteBtn').onclick=()=>{
+      if(confirm(`确定删除 [${obj.name}] ?`)){
+        if(level==='L0') delete EQUIPMENT_DATA[k1];
+        else if(level==='L1') delete EQUIPMENT_DATA[k1].modules[k2];
+        else delete EQUIPMENT_DATA[k1].modules[k2].subcomponents[k3];
+        closeModal(); handleRoute();
       }
+    };
+  }
+  function closeModal(){ modalOverlay.style.display='none'; }
+
+  // ===== 预览弹窗 =====
+  function closeViewer(){ viewerOverlay.style.display='none'; viewerBody.innerHTML=''; }
+  viewerOverlay.addEventListener('click', (e)=>{ if(e.target===viewerOverlay) closeViewer(); });
+
+  function openFile(filePath, titleText='预览'){
+    const ext=(filePath.split('.').pop()||'').toLowerCase();
+    if(ext==='pdf'){ window.open(filePath,'_blank'); return; }
+    if(isImageExt(ext)){
+      viewerTitle.innerText=titleText||'图片预览';
+      viewerBody.innerHTML=`
+        <img src="${filePath}" style="max-width:100%; max-height:78vh; border-radius:12px;" />
+        <div style="margin-top:10px;">
+          <a href="${filePath}" target="_blank" class="pdf-link" style="display:inline-block;">在新标签打开原图</a>
+        </div>`;
+      viewerOverlay.style.display='flex';
+      return;
+    }
+    window.open(filePath,'_blank');
+  }
+
+  // ===== 渲染 =====
+  function renderL0(){
+    pageTitle.innerText='设备总览 (L0)';
+    contentDiv.innerHTML=''; backButton.style.display='none';
+    getSortedKeys(EQUIPMENT_DATA).forEach(key=>{
+      contentDiv.innerHTML+=`
+        <div class="menu-item-wrapper">
+          <div class="menu-item" onclick="window.location.hash='#L1=${key}'"><h2>${EQUIPMENT_DATA[key].name}</h2></div>
+          <button class="edit-btn" onclick="openModal(event,'L0','${key}')">管理</button>
+        </div>`;
+    });
+  }
+
+  function renderL1(dk){
+    const dev=EQUIPMENT_DATA[dk];
+    pageTitle.innerText=dev.name;
+    contentDiv.innerHTML=''; backButton.style.display='block';
+    getSortedKeys(dev.modules||{}).forEach(mk=>{
+      contentDiv.innerHTML+=`
+        <div class="menu-item-wrapper">
+          <div class="menu-item" onclick="window.location.hash='#L2=${dk},${mk}'"><h2>${dev.modules[mk].name}</h2></div>
+          <button class="edit-btn" onclick="openModal(event,'L1','${dk}','${mk}')">管理</button>
+        </div>`;
+    });
+  }
+
+  /* =====================================================
+     ✅ 关键改动：重写 renderL2
+     - 不再用 menu-item-wrapper 的 flex 列表（会挤压图片）
+     - 改成 l2-grid 相册式平铺
+     - 每个子项 sc 一张卡片：封面图 + 标题 + 文件数量
+     - 右上角“管理”按钮绝对定位，不影响布局
+     - 点击卡片：优先打开第一张图片；没有图片则打开第一个 PDF；都没有就不动作
+     ===================================================== */
+ function renderL2(dk,mk){
+  const mod=EQUIPMENT_DATA[dk].modules[mk];
+  pageTitle.innerText=mod.name;
+  contentDiv.innerHTML=''; backButton.style.display='block';
+
+  const keys = getSortedKeys(mod.subcomponents||{});
+  if(keys.length === 0){
+    contentDiv.innerHTML = `<div class="hint">当前文件夹没有内容。你可以点右上角 “＋” 添加，或者（本地模式）用 🧭 扫描。</div>`;
+    return;
+  }
+
+  // 分流：有图的进相册；纯PDF/其它的走你原来的纵向列表
+  const photoCards = [];
+  const pdfListRows = [];
+
+  keys.forEach(sk=>{
+    const sc=mod.subcomponents[sk];
+    const processes = sc.processes || [];
+
+    const images=[]; const pdfs=[]; const others=[];
+    processes.forEach(p=>{
+      const fp=p.file || p.pdf;
+      if(!fp) return;
+      const ext=(fp.split('.').pop()||'').toLowerCase();
+      const title=p.name || sc.name || fp.split('/').pop();
+      if(ext==='pdf') pdfs.push({fp,title,ext});
+      else if(isImageExt(ext)) images.push({fp,title,ext});
+      else others.push({fp,title,ext});
     });
 
-    btnReset.onclick = () => {
-      if (!confirm("清空本地保存并恢复 data.js 默认数据？")) return;
-      localStorage.removeItem(STORE_KEY);
-      DATA = loadData();
-      alert("已恢复默认");
-      render();
-    };
+    // ========= 1) 有图片：相册卡片 =========
+    if(images.length){
+      const cover = images[0]?.fp || makePlaceholderDataUri(sc.name || 'NO COVER');
 
-    // 首次渲染
-    render();
-  </script>
+      // 点击卡片打开第一张图
+      const openTarget = images[0].fp;
+      const openTitle  = images[0].title || sc.name || '预览';
+
+      const fileCount = images.length + pdfs.length + others.length;
+      const summary = `${images.length} 图 / ${pdfs.length} PDF` + (others.length ? ` / ${others.length} 其他` : '');
+
+      photoCards.push(`
+        <div class="l2-card" onclick="openFile('${safeJsString(openTarget)}','${safeJsString(openTitle)}')">
+          <img class="l2-thumb" src="${cover}" alt="${sc.name || ''}">
+          <button class="l2-manage" onclick="openModal(event,'L2','${dk}','${mk}','${sk}')">管理</button>
+          <div class="l2-body">
+            <div class="l2-title">${sc.name || '(未命名)'}</div>
+            <div class="l2-sub">${summary} · 共 ${fileCount} 个</div>
+          </div>
+        </div>
+      `);
+      return;
+    }
+
+    // ========= 2) 没图片（纯PDF/其它）：恢复纵向列表 =========
+    // 点击整块时：优先打开第一个PDF，否则打开第一个其它文件
+    const openTarget = (pdfs[0]?.fp || others[0]?.fp || null);
+    const openTitle  = (pdfs[0]?.title || others[0]?.title || sc.name || '预览');
+
+    let inner = `
+      <div class="menu-item" ${openTarget ? `onclick="openFile('${safeJsString(openTarget)}','${safeJsString(openTitle)}')"` : ''}>
+        <h2>${sc.name || '(未命名)'}</h2>
+    `;
+
+    // 保持你原来的 PDF 按钮形式
+    pdfs.forEach(it=>{
+      inner += `<a href="javascript:void(0)" onclick="openFile('${safeJsString(it.fp)}','${safeJsString(it.title)}')" class="pdf-link">📄 点击打开 PDF</a>`;
+    });
+    others.forEach(it=>{
+      inner += `<a href="javascript:void(0)" onclick="openFile('${safeJsString(it.fp)}','${safeJsString(it.title)}')" class="pdf-link">📎 打开文件</a>`;
+    });
+
+    inner += `</div>`;
+
+    pdfListRows.push(`
+      <div class="menu-item-wrapper">
+        ${inner}
+        <button class="edit-btn" onclick="openModal(event,'L2','${dk}','${mk}','${sk}')">管理</button>
+      </div>
+    `);
+  });
+
+  // 输出：先照片相册，再PDF列表
+  let html = '';
+
+  if(photoCards.length){
+    html += `<div class="hint" style="margin:6px 0 10px;">📷 照片</div>`;
+    html += `<div class="l2-grid">${photoCards.join('')}</div>`;
+  }
+
+  if(pdfListRows.length){
+    html += `<div class="hint" style="margin:14px 0 10px;">📄 PDF / 其他文件</div>`;
+    html += pdfListRows.join('');
+  }
+
+  contentDiv.innerHTML = html;
+}
+
+
+  // ===== 路由 =====
+  function handleRoute(){
+    const hash=window.location.hash.slice(1);
+    if(!hash){ renderL0(); return; }
+    const [level, params]=hash.split('=');
+    const keys=(params||'').split(',');
+    if(level==='L1'){ renderL1(keys[0]); backButton.onclick=()=>window.location.hash=''; }
+    else if(level==='L2'){ renderL2(keys[0],keys[1]); backButton.onclick=()=>window.location.hash=`#L1=${keys[0]}`; }
+    else renderL0();
+  }
+  window.addEventListener('hashchange', handleRoute);
+  handleRoute();
+
+  // =====================================================
+  // ✅ 本地扫描（保持你原逻辑不动）
+  // =====================================================
+  function triggerLocalScan(){
+    const r = getCurrentRoute();
+    if(r.level !== 'L2' || !r.dk || !r.mk){
+      alert("请先进入一个具体的文件夹（例如【出荷写真】）后再点击本地扫描。");
+      return;
+    }
+    dirPicker.value = '';
+    dirPicker.click();
+  }
+
+  dirPicker.addEventListener('change', (e)=>{
+    const route = getCurrentRoute();
+    if(route.level !== 'L2' || !route.dk || !route.mk) return;
+
+    const dk = route.dk;
+    const mk = route.mk;
+
+    const fileList = [...(e.target.files || [])];
+    if(fileList.length === 0) return;
+
+    const results = [];
+    for(const f of fileList){
+      const rel = (f.webkitRelativePath || f.name).replace(/\\/g,'/');
+
+      let kind = null;
+      let after = null;
+
+      const idxImg = rel.indexOf('/images/');
+      const idxPdf = rel.indexOf('/pdfs/');
+
+      if(idxImg >= 0){
+        kind = 'images';
+        after = rel.slice(idxImg + '/images/'.length);
+      }else if(idxPdf >= 0){
+        kind = 'pdfs';
+        after = rel.slice(idxPdf + '/pdfs/'.length);
+      }else{
+        if(rel.startsWith('images/')){
+          kind='images'; after = rel.slice('images/'.length);
+        }else if(rel.startsWith('pdfs/')){
+          kind='pdfs'; after = rel.slice('pdfs/'.length);
+        }else{
+          const extGuess = (rel.split('.').pop() || '').toLowerCase();
+          kind = (extGuess === 'pdf') ? 'pdfs' : 'images';
+          after = rel;
+        }
+      }
+
+      if(!kind || !after) continue;
+      after = normalize(after);
+
+      const ext = (after.split('.').pop() || '').toLowerCase();
+      if(kind === 'pdfs' && ext !== 'pdf') continue;
+      if(kind === 'images' && !isImageExt(ext)) continue;
+
+      // ✅ 强制整理成：images/设备名/... 或 pdfs/设备名/...
+const devFolder = getDeviceFolderName(dk);
+
+// 如果 after 已经以 “设备名/” 开头，就不重复加
+const firstSeg = (after.split('/')[0] || '').trim();
+if(firstSeg !== devFolder){
+  after = `${devFolder}/${after}`;
+}
+
+const path = `${kind}/${after}`;
+
+      const title = baseNameNoExt(after) || after;
+
+      results.push({ path, ext, title });
+    }
+
+    if(results.length === 0){
+      alert("没有扫到可用文件。\n建议你选择包含 images 或 pdfs 的目录，或选择设备目录（images/设备名 或 pdfs/设备名）。");
+      return;
+    }
+
+    const mod = EQUIPMENT_DATA[dk].modules[mk];
+    mod.subcomponents = mod.subcomponents || {};
+
+    let added = 0;
+    for(const it of results){
+      const subKey = 'sub_' + Date.now() + '_' + Math.floor(Math.random()*1000);
+      mod.subcomponents[subKey] = {
+        name: it.title,
+        processes: [{ name: it.title, file: it.path, ext: it.ext }]
+      };
+      added++;
+    }
+
+    handleRoute();
+    alert(`已追加到当前文件夹：${added} 个文件。\n下一步：点右上角 💾 导出，覆盖 data.js。`);
+  });
+</script>
 </body>
 </html>
