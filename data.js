@@ -786,5 +786,25 @@ window.EQUIPMENT_DATA = {
                 "subcomponents": {}
             }
         }
+    },
+    "dev_1766622386219": {
+        "name": "MT-BI12",
+        "modules": {
+            "mod_1766622404942": {
+                "name": "電気図面",
+                "subcomponents": {
+                    "sub_1766622419513_222": {
+                        "name": "MT-BI12-回路図-R5-20251225",
+                        "processes": [
+                            {
+                                "name": "MT-BI12-回路図-R5-20251225",
+                                "file": "pdfs/MT-BI12/MT-BI12-回路図-R5-20251225.pdf",
+                                "ext": "pdf"
+                            }
+                        ]
+                    }
+                }
+            }
+        }
     }
 };
