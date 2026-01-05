@@ -773,6 +773,16 @@ window.EQUIPMENT_DATA = {
                                 "ext": "pdf"
                             }
                         ]
+                    },
+                    "sub_1767593214942": {
+                        "name": "★LODAS-MPI-光学-ハーネス図面-R2-20260105",
+                        "processes": [
+                            {
+                                "name": "★LODAS-MPI-光学-ハーネス図面-R2-20260105",
+                                "file": "pdfs/光学配線関係/★LODAS-MPI-光学-ハーネス図面-R2-20260105.pdf",
+                                "ext": "pdf"
+                            }
+                        ]
                     }
                 }
             }
