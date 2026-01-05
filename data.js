@@ -648,6 +648,16 @@ window.EQUIPMENT_DATA = {
                                 "ext": "pdf"
                             }
                         ]
+                    },
+                    "sub_1767588654033": {
+                        "name": "Robot データ読み取り",
+                        "processes": [
+                            {
+                                "name": "Robot データ読み取り",
+                                "file": "pdfs/手順書/Robot データ読み取り.pdf",
+                                "ext": "pdf"
+                            }
+                        ]
                     }
                 }
             }
