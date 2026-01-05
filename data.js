@@ -48,6 +48,16 @@ window.EQUIPMENT_DATA = {
                                 "ext": "pdf"
                             }
                         ]
+                    },
+                    "sub_1767587119290": {
+                        "name": "SST-出荷検査リスト",
+                        "processes": [
+                            {
+                                "name": "SST-出荷検査リスト",
+                                "file": "pdfs/SST-AI100/SST-出荷検査リスト.pdf",
+                                "ext": "pdf"
+                            }
+                        ]
                     }
                 }
             },
