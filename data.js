@@ -846,5 +846,370 @@ window.EQUIPMENT_DATA = {
                 }
             }
         }
+    },
+    "dev_1767662215277": {
+        "name": "各種資料",
+        "modules": {
+            "mod_1767662221682": {
+                "name": "GCRロボット",
+                "subcomponents": {
+                    "sub_1767662241200_95": {
+                        "name": "GCR-保守点検マニュアル：S190520",
+                        "processes": [
+                            {
+                                "name": "GCR-保守点検マニュアル：S190520",
+                                "file": "pdfs/各種資料/GCR-保守点検マニュアル：S190520.pdf",
+                                "ext": "pdf"
+                            }
+                        ]
+                    },
+                    "sub_1767662241200_79": {
+                        "name": "GCR-機械仕様書：MS1240104",
+                        "processes": [
+                            {
+                                "name": "GCR-機械仕様書：MS1240104",
+                                "file": "pdfs/各種資料/GCR-機械仕様書：MS1240104.pdf",
+                                "ext": "pdf"
+                            }
+                        ]
+                    },
+                    "sub_1767662241200_943": {
+                        "name": "GCR-取扱説明書：T-00713H",
+                        "processes": [
+                            {
+                                "name": "GCR-取扱説明書：T-00713H",
+                                "file": "pdfs/各種資料/GCR-取扱説明書：T-00713H.pdf",
+                                "ext": "pdf"
+                            }
+                        ]
+                    },
+                    "sub_1767662241200_976": {
+                        "name": "GCR-制御仕様書：ES1220725B",
+                        "processes": [
+                            {
+                                "name": "GCR-制御仕様書：ES1220725B",
+                                "file": "pdfs/各種資料/GCR-制御仕様書：ES1220725B.pdf",
+                                "ext": "pdf"
+                            }
+                        ]
+                    },
+                    "sub_1767662241200_331": {
+                        "name": "GCR-エッジグリップ説明書：T-OMP240124",
+                        "processes": [
+                            {
+                                "name": "GCR-エッジグリップ説明書：T-OMP240124",
+                                "file": "pdfs/各種資料/GCR-エッジグリップ説明書：T-OMP240124.pdf",
+                                "ext": "pdf"
+                            }
+                        ]
+                    },
+                    "sub_1767662241200_670": {
+                        "name": "GCR-お客様個別仕様説明書：TK-12210471",
+                        "processes": [
+                            {
+                                "name": "GCR-お客様個別仕様説明書：TK-12210471",
+                                "file": "pdfs/各種資料/GCR-お客様個別仕様説明書：TK-12210471.pdf",
+                                "ext": "pdf"
+                            }
+                        ]
+                    },
+                    "sub_1767662241200_493": {
+                        "name": "GCR-ワークサーチ説明書：T-OWS100212",
+                        "processes": [
+                            {
+                                "name": "GCR-ワークサーチ説明書：T-OWS100212",
+                                "file": "pdfs/各種資料/GCR-ワークサーチ説明書：T-OWS100212.pdf",
+                                "ext": "pdf"
+                            }
+                        ]
+                    }
+                }
+            },
+            "mod_1767662249740": {
+                "name": "SCRロボット",
+                "subcomponents": {
+                    "sub_1767662416800_975": {
+                        "name": "SCR-機械仕様書：MS1210819A",
+                        "processes": [
+                            {
+                                "name": "SCR-機械仕様書：MS1210819A",
+                                "file": "pdfs/各種資料/SCR-機械仕様書：MS1210819A.pdf",
+                                "ext": "pdf"
+                            }
+                        ]
+                    },
+                    "sub_1767662416800_77": {
+                        "name": "SCR-取扱説明書：T-00608H",
+                        "processes": [
+                            {
+                                "name": "SCR-取扱説明書：T-00608H",
+                                "file": "pdfs/各種資料/SCR-取扱説明書：T-00608H.pdf",
+                                "ext": "pdf"
+                            }
+                        ]
+                    },
+                    "sub_1767662416800_360": {
+                        "name": "SCR-アーム伸びインターロック説明書：T-OAI131028",
+                        "processes": [
+                            {
+                                "name": "SCR-アーム伸びインターロック説明書：T-OAI131028",
+                                "file": "pdfs/各種資料/SCR-アーム伸びインターロック説明書：T-OAI131028.pdf",
+                                "ext": "pdf"
+                            }
+                        ]
+                    },
+                    "sub_1767662416800_553": {
+                        "name": "SCR-お客様個別仕様説明書：TK-12106387",
+                        "processes": [
+                            {
+                                "name": "SCR-お客様個別仕様説明書：TK-12106387",
+                                "file": "pdfs/各種資料/SCR-お客様個別仕様説明書：TK-12106387.pdf",
+                                "ext": "pdf"
+                            }
+                        ]
+                    },
+                    "sub_1767662416800_195": {
+                        "name": "SCR-センサコネクタ説明書：T-OSC130116",
+                        "processes": [
+                            {
+                                "name": "SCR-センサコネクタ説明書：T-OSC130116",
+                                "file": "pdfs/各種資料/SCR-センサコネクタ説明書：T-OSC130116.pdf",
+                                "ext": "pdf"
+                            }
+                        ]
+                    },
+                    "sub_1767662416800_14": {
+                        "name": "SCR-バンク機能説明書：T-OBK140114",
+                        "processes": [
+                            {
+                                "name": "SCR-バンク機能説明書：T-OBK140114",
+                                "file": "pdfs/各種資料/SCR-バンク機能説明書：T-OBK140114.pdf",
+                                "ext": "pdf"
+                            }
+                        ]
+                    },
+                    "sub_1767662416800_708": {
+                        "name": "SCR-ロボット原点復帰動作説明書：T-OOS080731",
+                        "processes": [
+                            {
+                                "name": "SCR-ロボット原点復帰動作説明書：T-OOS080731",
+                                "file": "pdfs/各種資料/SCR-ロボット原点復帰動作説明書：T-OOS080731.pdf",
+                                "ext": "pdf"
+                            }
+                        ]
+                    },
+                    "sub_1767662416800_299": {
+                        "name": "SCR-ワークサーチ説明書：T-OWS160304",
+                        "processes": [
+                            {
+                                "name": "SCR-ワークサーチ説明書：T-OWS160304",
+                                "file": "pdfs/各種資料/SCR-ワークサーチ説明書：T-OWS160304.pdf",
+                                "ext": "pdf"
+                            }
+                        ]
+                    },
+                    "sub_1767662444628_969": {
+                        "name": "SCR-制御仕様書：ES1211103",
+                        "processes": [
+                            {
+                                "name": "SCR-制御仕様書：ES1211103",
+                                "file": "pdfs/各種資料/SCR-制御仕様書：ES1211103.pdf",
+                                "ext": "pdf"
+                            }
+                        ]
+                    }
+                }
+            },
+            "mod_1767662459137": {
+                "name": "GTCRロボット",
+                "subcomponents": {
+                    "sub_1767662684713_924": {
+                        "name": "GTCR-3D-18751-Clamp部分変更希望",
+                        "processes": [
+                            {
+                                "name": "GTCR-3D-18751-Clamp部分変更希望",
+                                "file": "pdfs/各種資料/GTCR-3D-18751-Clamp部分変更希望.pdf",
+                                "ext": "pdf"
+                            }
+                        ]
+                    },
+                    "sub_1767662684713_397": {
+                        "name": "GTCR-保守点検マニュアル：S240423",
+                        "processes": [
+                            {
+                                "name": "GTCR-保守点検マニュアル：S240423",
+                                "file": "pdfs/各種資料/GTCR-保守点検マニュアル：S240423.pdf",
+                                "ext": "pdf"
+                            }
+                        ]
+                    },
+                    "sub_1767662684713_330": {
+                        "name": "GTCR-機械仕様書：MS1250119B",
+                        "processes": [
+                            {
+                                "name": "GTCR-機械仕様書：MS1250119B",
+                                "file": "pdfs/各種資料/GTCR-機械仕様書：MS1250119B.pdf",
+                                "ext": "pdf"
+                            }
+                        ]
+                    },
+                    "sub_1767662684713_973": {
+                        "name": "GTCR-旧2.4チャック3D-18376",
+                        "processes": [
+                            {
+                                "name": "GTCR-旧2.4チャック3D-18376",
+                                "file": "pdfs/各種資料/GTCR-旧2.4チャック3D-18376.pdf",
+                                "ext": "pdf"
+                            }
+                        ]
+                    },
+                    "sub_1767662684713_539": {
+                        "name": "GTCR-取扱説明書：T-00693Q",
+                        "processes": [
+                            {
+                                "name": "GTCR-取扱説明書：T-00693Q",
+                                "file": "pdfs/各種資料/GTCR-取扱説明書：T-00693Q.pdf",
+                                "ext": "pdf"
+                            }
+                        ]
+                    },
+                    "sub_1767662684713_926": {
+                        "name": "GTCR-外観図3D-18065D (承認）",
+                        "processes": [
+                            {
+                                "name": "GTCR-外観図3D-18065D (承認）",
+                                "file": "pdfs/各種資料/GTCR-外観図3D-18065D (承認）.pdf",
+                                "ext": "pdf"
+                            }
+                        ]
+                    },
+                    "sub_1767662684713_895": {
+                        "name": "GTCR-新2.1チャック3D-18751",
+                        "processes": [
+                            {
+                                "name": "GTCR-新2.1チャック3D-18751",
+                                "file": "pdfs/各種資料/GTCR-新2.1チャック3D-18751.pdf",
+                                "ext": "pdf"
+                            }
+                        ]
+                    },
+                    "sub_1767662684713_606": {
+                        "name": "GTCR-制御仕様書：ES1240603B",
+                        "processes": [
+                            {
+                                "name": "GTCR-制御仕様書：ES1240603B",
+                                "file": "pdfs/各種資料/GTCR-制御仕様書：ES1240603B.pdf",
+                                "ext": "pdf"
+                            }
+                        ]
+                    },
+                    "sub_1767662684713_189": {
+                        "name": "GTCR-お客様個別仕様説明書：TK-12411186",
+                        "processes": [
+                            {
+                                "name": "GTCR-お客様個別仕様説明書：TK-12411186",
+                                "file": "pdfs/各種資料/GTCR-お客様個別仕様説明書：TK-12411186.pdf",
+                                "ext": "pdf"
+                            }
+                        ]
+                    }
+                }
+            },
+            "mod_1767662710644": {
+                "name": "STCRロボット",
+                "subcomponents": {
+                    "sub_1767662813754_163": {
+                        "name": "STCR-保守点検マニュアル：S190520",
+                        "processes": [
+                            {
+                                "name": "STCR-保守点検マニュアル：S190520",
+                                "file": "pdfs/各種資料/STCR-保守点検マニュアル：S190520.pdf",
+                                "ext": "pdf"
+                            }
+                        ]
+                    },
+                    "sub_1767662813754_676": {
+                        "name": "STCR-機械仕様書：MS1231029B",
+                        "processes": [
+                            {
+                                "name": "STCR-機械仕様書：MS1231029B",
+                                "file": "pdfs/各種資料/STCR-機械仕様書：MS1231029B.pdf",
+                                "ext": "pdf"
+                            }
+                        ]
+                    },
+                    "sub_1767662813754_523": {
+                        "name": "STCR-取扱説明書：T-00607K",
+                        "processes": [
+                            {
+                                "name": "STCR-取扱説明書：T-00607K",
+                                "file": "pdfs/各種資料/STCR-取扱説明書：T-00607K.pdf",
+                                "ext": "pdf"
+                            }
+                        ]
+                    },
+                    "sub_1767662813754_818": {
+                        "name": "STCR-制御仕様書：ES1210206F",
+                        "processes": [
+                            {
+                                "name": "STCR-制御仕様書：ES1210206F",
+                                "file": "pdfs/各種資料/STCR-制御仕様書：ES1210206F.pdf",
+                                "ext": "pdf"
+                            }
+                        ]
+                    },
+                    "sub_1767662813754_122": {
+                        "name": "STCR-アーム伸びインターロック説明書：T-OAI131028",
+                        "processes": [
+                            {
+                                "name": "STCR-アーム伸びインターロック説明書：T-OAI131028",
+                                "file": "pdfs/各種資料/STCR-アーム伸びインターロック説明書：T-OAI131028.pdf",
+                                "ext": "pdf"
+                            }
+                        ]
+                    },
+                    "sub_1767662813754_142": {
+                        "name": "STCR-センサコネクタ説明書：T-OSC130116",
+                        "processes": [
+                            {
+                                "name": "STCR-センサコネクタ説明書：T-OSC130116",
+                                "file": "pdfs/各種資料/STCR-センサコネクタ説明書：T-OSC130116.pdf",
+                                "ext": "pdf"
+                            }
+                        ]
+                    },
+                    "sub_1767662813754_790": {
+                        "name": "STCR-バンク機能説明書：T-OBK140114",
+                        "processes": [
+                            {
+                                "name": "STCR-バンク機能説明書：T-OBK140114",
+                                "file": "pdfs/各種資料/STCR-バンク機能説明書：T-OBK140114.pdf",
+                                "ext": "pdf"
+                            }
+                        ]
+                    },
+                    "sub_1767662813754_230": {
+                        "name": "STCR-ロボット原点復帰動作説明書：T-OOS080731",
+                        "processes": [
+                            {
+                                "name": "STCR-ロボット原点復帰動作説明書：T-OOS080731",
+                                "file": "pdfs/各種資料/STCR-ロボット原点復帰動作説明書：T-OOS080731.pdf",
+                                "ext": "pdf"
+                            }
+                        ]
+                    },
+                    "sub_1767662813754_186": {
+                        "name": "STCR-ワークサーチ説明書：T-OWS110218",
+                        "processes": [
+                            {
+                                "name": "STCR-ワークサーチ説明書：T-OWS110218",
+                                "file": "pdfs/各種資料/STCR-ワークサーチ説明書：T-OWS110218.pdf",
+                                "ext": "pdf"
+                            }
+                        ]
+                    }
+                }
+            }
+        }
     }
 };
