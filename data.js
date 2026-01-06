@@ -658,6 +658,16 @@ window.EQUIPMENT_DATA = {
                                 "ext": "pdf"
                             }
                         ]
+                    },
+                    "sub_1767659773933": {
+                        "name": "18-作業手順書_BI8梱包",
+                        "processes": [
+                            {
+                                "name": "18-作業手順書_BI8梱包",
+                                "file": "pdfs/手順書/18-作業手順書_BI8梱包.pdf",
+                                "ext": "pdf"
+                            }
+                        ]
                     }
                 }
             }
