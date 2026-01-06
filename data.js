@@ -1209,6 +1209,156 @@ window.EQUIPMENT_DATA = {
                         ]
                     }
                 }
+            },
+            "mod_1767663217664": {
+                "name": "アライナー",
+                "subcomponents": {
+                    "sub_1767663239961": {
+                        "name": "Waferアライナー取扱説明書(SN.12308020).pdf",
+                        "processes": [
+                            {
+                                "name": "Waferアライナー取扱説明書(SN.12308020).pdf",
+                                "file": "pdfs/各種資料/Waferアライナー取扱説明書(SN.12308020).pdf",
+                                "ext": "pdf"
+                            }
+                        ]
+                    }
+                }
+            },
+            "mod_1767663295777": {
+                "name": "配線関係",
+                "subcomponents": {
+                    "sub_1767663308531": {
+                        "name": "PS_Seriesコネクタ.pdf",
+                        "processes": [
+                            {
+                                "name": "PS_Seriesコネクタ.pdf",
+                                "file": "pdfs/各種資料/PS_Seriesコネクタ.pdf",
+                                "ext": "pdf"
+                            }
+                        ]
+                    },
+                    "sub_1767663360017": {
+                        "name": "HTKエンコーダコネクタ.pdf",
+                        "processes": [
+                            {
+                                "name": "HTKエンコーダコネクタ.pdf",
+                                "file": "pdfs/各種資料/HTKエンコーダコネクタ.pdf",
+                                "ext": "pdf"
+                            }
+                        ]
+                    },
+                    "sub_1767663407743": {
+                        "name": "電気図面記号.pdf",
+                        "processes": [
+                            {
+                                "name": "電気図面記号.pdf",
+                                "file": "pdfs/各種資料/電気図面記号.pdf",
+                                "ext": "pdf"
+                            }
+                        ]
+                    },
+                    "sub_1767663488171": {
+                        "name": "HTKエンコーダカバー.pdf",
+                        "processes": [
+                            {
+                                "name": "HTKエンコーダカバー.pdf",
+                                "file": "pdfs/各種資料/HTKエンコーダカバー.pdf",
+                                "ext": "pdf"
+                            }
+                        ]
+                    },
+                    "sub_1767663581924": {
+                        "name": "HTKエンコーダコネクター原本.pdf",
+                        "processes": [
+                            {
+                                "name": "HTKエンコーダコネクター原本.pdf",
+                                "file": "pdfs/各種資料/HTKエンコーダコネクター原本.pdf",
+                                "ext": "pdf"
+                            }
+                        ]
+                    }
+                }
+            },
+            "mod_1767663648580": {
+                "name": "各軸",
+                "subcomponents": {
+                    "sub_1767663655235": {
+                        "name": "IAI軸-ELECYLINDER_ELECTRICITY(MJ3816-6B).pdf",
+                        "processes": [
+                            {
+                                "name": "IAI軸-ELECYLINDER_ELECTRICITY(MJ3816-6B).pdf",
+                                "file": "pdfs/各種資料/IAI軸-ELECYLINDER_ELECTRICITY(MJ3816-6B).pdf",
+                                "ext": "pdf"
+                            }
+                        ]
+                    },
+                    "sub_1767663672814": {
+                        "name": "DCモータJP_TECHNICAL_INFORMATION.pdf",
+                        "processes": [
+                            {
+                                "name": "DCモータJP_TECHNICAL_INFORMATION.pdf",
+                                "file": "pdfs/各種資料/DCモータJP_TECHNICAL_INFORMATION.pdf",
+                                "ext": "pdf"
+                            }
+                        ]
+                    },
+                    "sub_1767663724834": {
+                        "name": "エアーシリンダー-LCMシリーズ(3MB).pdf",
+                        "processes": [
+                            {
+                                "name": "エアーシリンダー-LCMシリーズ(3MB).pdf",
+                                "file": "pdfs/各種資料/エアーシリンダー-LCMシリーズ(3MB).pdf",
+                                "ext": "pdf"
+                            }
+                        ]
+                    },
+                    "sub_1767663753694_829": {
+                        "name": "AZD-KX-HM-60252J-機能編",
+                        "processes": [
+                            {
+                                "name": "AZD-KX-HM-60252J-機能編",
+                                "file": "pdfs/各種資料/AZD-KX-HM-60252J-機能編.pdf",
+                                "ext": "pdf"
+                            }
+                        ]
+                    },
+                    "sub_1767663753694_711": {
+                        "name": "AZD-KX-HM-60313J-ドライバ編",
+                        "processes": [
+                            {
+                                "name": "AZD-KX-HM-60313J-ドライバ編",
+                                "file": "pdfs/各種資料/AZD-KX-HM-60313J-ドライバ編.pdf",
+                                "ext": "pdf"
+                            }
+                        ]
+                    }
+                }
+            },
+            "mod_1767663788383": {
+                "name": "Opener",
+                "subcomponents": {
+                    "sub_1767663802951": {
+                        "name": "T-RV203R0401314-755J-4.pdf",
+                        "processes": [
+                            {
+                                "name": "T-RV203R0401314-755J-4.pdf",
+                                "file": "pdfs/各種資料/T-RV203R0401314-755J-4.pdf",
+                                "ext": "pdf"
+                            }
+                        ]
+                    },
+                    "sub_1767663849188": {
+                        "name": "SSTで最新-T-RE201819003A3-806J-3.pdf",
+                        "processes": [
+                            {
+                                "name": "SSTで最新-T-RE201819003A3-806J-3.pdf",
+                                "file": "pdfs/各種資料/SSTで最新-T-RE201819003A3-806J-3.pdf",
+                                "ext": "pdf"
+                            }
+                        ]
+                    }
+                }
             }
         }
     }
