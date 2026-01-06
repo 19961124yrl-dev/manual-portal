@@ -1359,6 +1359,146 @@ window.EQUIPMENT_DATA = {
                         ]
                     }
                 }
+            },
+            "mod_1767664039306": {
+                "name": "OCR",
+                "subcomponents": {
+                    "sub_1767664044991": {
+                        "name": "OCR電源ケーブル-CCB-84901-8003-05.pdf",
+                        "processes": [
+                            {
+                                "name": "OCR電源ケーブル-CCB-84901-8003-05.pdf",
+                                "file": "pdfs/各種資料/OCR電源ケーブル-CCB-84901-8003-05.pdf",
+                                "ext": "pdf"
+                            }
+                        ]
+                    }
+                }
+            },
+            "mod_1767664080719": {
+                "name": "ロードポート",
+                "subcomponents": {
+                    "sub_1767664348824_738": {
+                        "name": "Lodpot-問い合わせ先",
+                        "processes": [
+                            {
+                                "name": "Lodpot-問い合わせ先",
+                                "file": "pdfs/各種資料/Lodpot-問い合わせ先.pdf",
+                                "ext": "pdf"
+                            }
+                        ]
+                    },
+                    "sub_1767664348824_412": {
+                        "name": "Lodpot-E193J316 オペレーションマニュアル",
+                        "processes": [
+                            {
+                                "name": "Lodpot-E193J316 オペレーションマニュアル",
+                                "file": "pdfs/各種資料/Lodpot-E193J316 オペレーションマニュアル.pdf",
+                                "ext": "pdf"
+                            }
+                        ]
+                    },
+                    "sub_1767664348824_800": {
+                        "name": "Lodpot-E193J372 インターフェース仕様書",
+                        "processes": [
+                            {
+                                "name": "Lodpot-E193J372 インターフェース仕様書",
+                                "file": "pdfs/各種資料/Lodpot-E193J372 インターフェース仕様書.pdf",
+                                "ext": "pdf"
+                            }
+                        ]
+                    },
+                    "sub_1767664348824_990": {
+                        "name": "Lodpot-E4_V640_InstallProcedure_moving_R100-J",
+                        "processes": [
+                            {
+                                "name": "Lodpot-E4_V640_InstallProcedure_moving_R100-J",
+                                "file": "pdfs/各種資料/Lodpot-E4_V640_InstallProcedure_moving_R100-J.pdf",
+                                "ext": "pdf"
+                            }
+                        ]
+                    },
+                    "sub_1767664348824_295": {
+                        "name": "Lodpot-E84-E4-079 ファームウェア更新手順",
+                        "processes": [
+                            {
+                                "name": "Lodpot-E84-E4-079 ファームウェア更新手順",
+                                "file": "pdfs/各種資料/Lodpot-E84-E4-079 ファームウェア更新手順.pdf",
+                                "ext": "pdf"
+                            }
+                        ]
+                    },
+                    "sub_1767664348824_446": {
+                        "name": "Lodpot-エラーコード確認方法",
+                        "processes": [
+                            {
+                                "name": "Lodpot-エラーコード確認方法",
+                                "file": "pdfs/各種資料/Lodpot-エラーコード確認方法.pdf",
+                                "ext": "pdf"
+                            }
+                        ]
+                    },
+                    "sub_1767664348824_932": {
+                        "name": "Lodpot-E84-E4SPC0121 - TAS-E84RSE_仕様書 Rev.1.4",
+                        "processes": [
+                            {
+                                "name": "Lodpot-E84-E4SPC0121 - TAS-E84RSE_仕様書 Rev.1.4",
+                                "file": "pdfs/各種資料/Lodpot-E84-E4SPC0121 - TAS-E84RSE_仕様書 Rev.1.4.pdf",
+                                "ext": "pdf"
+                            }
+                        ]
+                    },
+                    "sub_1767664348824_688": {
+                        "name": "Lodpot-E84-J1-016 パラメータ保存・変更方法",
+                        "processes": [
+                            {
+                                "name": "Lodpot-E84-J1-016 パラメータ保存・変更方法",
+                                "file": "pdfs/各種資料/Lodpot-E84-J1-016 パラメータ保存・変更方法.pdf",
+                                "ext": "pdf"
+                            }
+                        ]
+                    },
+                    "sub_1767664348824_802": {
+                        "name": "Lodpot-RF-IDリーダー",
+                        "processes": [
+                            {
+                                "name": "Lodpot-RF-IDリーダー",
+                                "file": "pdfs/各種資料/Lodpot-RF-IDリーダー.pdf",
+                                "ext": "pdf"
+                            }
+                        ]
+                    },
+                    "sub_1767664348824_335": {
+                        "name": "Lodpot-RF-IDリーダーカタログ",
+                        "processes": [
+                            {
+                                "name": "Lodpot-RF-IDリーダーカタログ",
+                                "file": "pdfs/各種資料/Lodpot-RF-IDリーダーカタログ.pdf",
+                                "ext": "pdf"
+                            }
+                        ]
+                    },
+                    "sub_1767664348824_55": {
+                        "name": "Lodpot-ご案内",
+                        "processes": [
+                            {
+                                "name": "Lodpot-ご案内",
+                                "file": "pdfs/各種資料/Lodpot-ご案内.pdf",
+                                "ext": "pdf"
+                            }
+                        ]
+                    },
+                    "sub_1767664348824_368": {
+                        "name": "Lodpot-フレキシプルマッピング改造作業報告書-LAZINサイン済み",
+                        "processes": [
+                            {
+                                "name": "Lodpot-フレキシプルマッピング改造作業報告書-LAZINサイン済み",
+                                "file": "pdfs/各種資料/Lodpot-フレキシプルマッピング改造作業報告書-LAZINサイン済み.pdf",
+                                "ext": "pdf"
+                            }
+                        ]
+                    }
+                }
             }
         }
     }
