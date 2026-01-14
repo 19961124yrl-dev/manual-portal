@@ -744,16 +744,6 @@ window.EQUIPMENT_DATA = {
             "mod_1766466821494": {
                 "name": "ハーネス図面",
                 "subcomponents": {
-                    "sub_1766466828975_253": {
-                        "name": "★LODAS-MPI-光学-ハーネス図面-R1-20251127",
-                        "processes": [
-                            {
-                                "name": "★LODAS-MPI-光学-ハーネス図面-R1-20251127",
-                                "file": "pdfs/光学配線関係/★LODAS-MPI-光学-ハーネス図面-R1-20251127.pdf",
-                                "ext": "pdf"
-                            }
-                        ]
-                    },
                     "sub_1766466828975_520": {
                         "name": "★LODAS-標準-駆動-ハーネス図面-R1-20250918",
                         "processes": [
@@ -784,12 +774,22 @@ window.EQUIPMENT_DATA = {
                             }
                         ]
                     },
-                    "sub_1767593214942": {
-                        "name": "★LODAS-MPI-光学-ハーネス図面-R2-20260105",
+                    "sub_1768355210241_802": {
+                        "name": "★LODAS-MPI-光学-ハーネス図面-R3-20260113",
                         "processes": [
                             {
-                                "name": "★LODAS-MPI-光学-ハーネス図面-R2-20260105",
-                                "file": "pdfs/光学配線関係/★LODAS-MPI-光学-ハーネス図面-R2-20260105.pdf",
+                                "name": "★LODAS-MPI-光学-ハーネス図面-R3-20260113",
+                                "file": "pdfs/光学配線関係/★LODAS-MPI-光学-ハーネス図面-R3-20260113.pdf",
+                                "ext": "pdf"
+                            }
+                        ]
+                    },
+                    "sub_1768355252970_531": {
+                        "name": "★LODAS-標準-光学-ハーネス図面-R1-20250918",
+                        "processes": [
+                            {
+                                "name": "★LODAS-標準-光学-ハーネス図面-R1-20250918",
+                                "file": "pdfs/光学配線関係/★LODAS-標準-光学-ハーネス図面-R1-20250918.pdf",
                                 "ext": "pdf"
                             }
                         ]
