@@ -1497,6 +1497,16 @@ window.EQUIPMENT_DATA = {
                                 "ext": "pdf"
                             }
                         ]
+                    },
+                    "sub_1768437675446_768": {
+                        "name": "Lodpot-フレキシブルマッピング仕様書 Rev.1.0",
+                        "processes": [
+                            {
+                                "name": "Lodpot-フレキシブルマッピング仕様書 Rev.1.0",
+                                "file": "pdfs/各種資料/Lodpot-フレキシブルマッピング仕様書 Rev.1.0.pdf",
+                                "ext": "pdf"
+                            }
+                        ]
                     }
                 }
             }
